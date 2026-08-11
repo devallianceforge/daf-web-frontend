@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+/*
+  Tailwind v4 is CSS-first: theme tokens (colors, fonts, radii, easing,
+  animations, gradients) are declared here instead of tailwind.config.ts.
+  Every custom utility used across components (bg-bg, text-mint, rounded-daf,
+  ease-daf, animate-blink, bg-daf-gradient, etc.) is generated from this block.
+  See docs/DESIGN_SYSTEM.md for the human-readable reference.
+*/
+@theme {
+  --color-bg: #06060b;
+  --color-bg-alt: #0a0a12;
+  --color-surface: #0e0e17;
+  --color-surface-2: #14141f;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hi: rgba(255, 255, 255, 0.16);
+  --color-text: #f5f5fa;
+  --color-text-muted: #9595a9;
+  --color-text-dim: #5c5c6e;
+  --color-violet: #7c3aed;
+  --color-blue: #3b82f6;
+  --color-mint: #2fe6b0;
+
+  /* next/font injects the real font-family values into --font-display-sans /
+     --font-body-sans / --font-mono-code on <html> (see layout.tsx). We alias
+     them here under Tailwind's --font-* namespace so `font-display`,
+     `font-body`, and `font-mono` utilities work as expected. */
+  --font-display: var(--font-display-sans), sans-serif;
+  --font-body: var(--font-body-sans), sans-serif;
+  --font-mono: var(--font-mono-code), monospace;
+
+  --radius-daf: 16px;
+  --ease-daf: cubic-bezier(0.16, 0.84, 0.32, 1);
+
+  --background-image-daf-gradient: linear-gradient(95deg, #7c3aed 0%, #3b82f6 52%, #2fe6b0 100%);
+  --background-image-daf-gradient-soft: linear-gradient(
+    95deg,
+    rgba(124, 58, 237, 0.16) 0%,
+    rgba(59, 130, 246, 0.16) 52%,
+    rgba(47, 230, 176, 0.16) 100%
+  );
+
+  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
+  --animate-blink: blink 1s step-end infinite;
+  --animate-scrollcue: scrollcue 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes scrollcue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  51% {
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #06060b;
+    color: #f5f5fa;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  ::selection {
+    background: #7c3aed;
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #06060b;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #22222e;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #33334a;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
