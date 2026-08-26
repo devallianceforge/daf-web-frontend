@@ -11,14 +11,7 @@ export function Footer() {
         <div className="mb-14 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <Link href="/" className="flex items-center">
-              <Image
-                src="/logo.png"
-                alt="Dev Alliance Forge"
-                width={1048}
-                height={130}
-                sizes="225px"
-                className="h-7 w-auto"
-              />
+              <Image src="/logo.png" alt="DAF" width={1048} height={130} className="h-7 w-auto" />
             </Link>
             <p className="mb-5 mt-4 max-w-[280px] text-[13.5px] text-text-muted">{SITE.description}</p>
             <div className="flex flex-wrap gap-2.5">
@@ -43,6 +36,8 @@ export function Footer() {
               <Link href="/about" className="hover:text-mint">About</Link>
               <Link href="/events" className="hover:text-mint">Events</Link>
               <Link href="/workshops" className="hover:text-mint">Workshops</Link>
+              <Link href="/projects" className="hover:text-mint">Projects</Link>
+              <Link href="/blog" className="hover:text-mint">Blog</Link>
               <Link href="/community" className="hover:text-mint">Community</Link>
             </div>
           </div>

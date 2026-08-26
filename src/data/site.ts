@@ -11,6 +11,8 @@ export const NAV_LINKS = [
   { label: 'About', href: '/about' },
   { label: 'Events', href: '/events' },
   { label: 'Workshops', href: '/workshops' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Community', href: '/community' },
   { label: 'Contact', href: '/contact' }
 ];
@@ -25,7 +27,7 @@ export type Stat = {
 export const STATS: Stat[] = [
   { label: 'Total Events', value: 40, suffix: '+' },
   { label: 'Workshops', value: 25, suffix: '+' },
-  { label: 'Builders', value: 500, suffix: '+' },
+  { label: 'Community Builders', value: 500, suffix: '+' },
   { label: 'Community Support', display: '24/7' }
 ];
 

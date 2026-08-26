@@ -74,7 +74,7 @@ export function ParticleField() {
           const dx = p.x - pointer.x;
           const dy = p.y - pointer.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 160 * dpr) {
+          if (dist > 0 && dist < 160 * dpr) {
             p.x += dx / dist * 0.6;
             p.y += dy / dist * 0.6;
           }
@@ -114,10 +114,11 @@ export function ParticleField() {
     init();
     draw();
 
-    const handleResize = () => {
+    function handleResize() {
       resize();
       init();
-    };
+    }
+
     window.addEventListener('resize', handleResize);
     canvas.addEventListener('mousemove', handleMouseMove);
     canvas.addEventListener('mouseleave', handleMouseLeave);

@@ -30,15 +30,7 @@ export function Header() {
       >
         <div className="mx-auto flex max-w-[1240px] items-center justify-between px-6">
           <Link href="/" className="flex items-center">
-            <Image
-              src="/logo.png"
-              alt="Dev Alliance Forge"
-              width={1048}
-              height={130}
-              sizes="225px"
-              className="h-7 w-auto"
-              priority
-            />
+            <Image src="/logo.png" alt="DAF" width={1048} height={130} className="h-7 w-auto" priority />
           </Link>
 
           <nav className="hidden gap-9 text-sm text-text-muted md:flex">

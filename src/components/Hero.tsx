@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { ParticleField } from './ParticleField';
 import { MagneticButton } from './MagneticButton';
 
-const BOOT_MESSAGES = ['$ daf --init', '$ compiling community...', '$ loading builders... done', '$ ready.'];
+const BOOT_MESSAGES = ['$ daf --init', '$ compiling community...', '$ loading community builders... done', '$ ready.'];
 
 function useBootLine() {
   const [text, setText] = useState('');

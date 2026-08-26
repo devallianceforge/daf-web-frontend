@@ -1,0 +1,61 @@
+import { BlogPostHeader } from '@/components/BlogPostHeader';
+
+export const metadata = {
+  title: '5 Tips for Your First Open Source Pull Request — DAF Blog',
+  description:
+    'Opening your first PR is more about process than skill. Here is what actually trips people up, and how to get past it.'
+};
+
+<BlogPostHeader
+  title="5 Tips for Your First Open Source Pull Request"
+  date="2026-08-15"
+  readTime="6 min read"
+  tags={['Open Source', 'Guide']}
+  author="DAF Mentor Team"
+/>
+
+Opening your first pull request is rarely blocked by skill. It's blocked by not knowing the
+unwritten process — and every maintainer assumes you already know it. Here's what actually trips
+people up at DAF build nights, in order.
+
+## 1. Read the contributing guide before the code
+
+Most repos have a `CONTRIBUTING.md`. It tells you the branch naming convention, the commit
+message format, and whether tests are required. Skipping it is the single most common reason a
+first PR gets stuck in review longer than it should.
+
+## 2. Start with issues labeled for newcomers
+
+Look for `good-first-issue` or `help-wanted` labels. They exist specifically so maintainers can
+signal "this is scoped small enough to be a safe first contribution." Jumping straight to an
+unlabeled, open-ended issue is where most people stall out.
+
+```bash
+# Fork, then clone your fork — not the original repo
+git clone https://github.com/your-username/the-project.git
+cd the-project
+git checkout -b fix/short-description
+```
+
+## 3. Keep the PR small and focused
+
+One logical change per pull request. A PR that fixes a typo *and* refactors a function *and* adds
+a feature is much harder to review — and much more likely to sit unreviewed. If you notice
+something else that needs fixing, open a separate issue for it instead of scope-creeping the PR
+you're already in.
+
+## 4. Write the PR description for a stranger
+
+Assume the reviewer has zero context. State what changed, why, and how you tested it. A PR titled
+"fix" with an empty description gets reviewed last, if at all — one titled "Fix null pointer in
+event date formatting when timezone is missing" gets reviewed first.
+
+## 5. Expect at least one round of feedback
+
+Review comments are not a verdict on your ability — they're the normal shape of how code gets
+better before merging. The contributors people think of as "good at open source" are usually just
+the ones who don't take the first round of comments personally and keep iterating.
+
+If you want a low-stakes place to try this for the first time, our
+[Build Night: Open Source Sprint](/events/build-night-open-source-sprint) is built exactly for
+that — mentors on hand the whole time.

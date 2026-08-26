@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
 import { CommunitySection } from '@/components/CommunitySection';
+import { BuilderCard } from '@/components/BuilderCard';
 import { Reveal } from '@/components/Reveal';
+import { BUILDERS } from '@/data/builders';
 
 export const metadata: Metadata = {
   title: 'Community — Dev Alliance Forge',
-  description: 'Join the DAF community across Discord, WhatsApp, Telegram, GitHub, and more.'
+  description:
+    'Meet the community builders behind DAF and join the community across Discord, WhatsApp, Telegram, GitHub, and more.'
 };
 
 export default function CommunityPage() {
@@ -21,6 +24,25 @@ export default function CommunityPage() {
           </h1>
         </Reveal>
       </div>
+
+      <section className="py-16">
+        <div className="mx-auto max-w-[1240px] px-6">
+          <Reveal className="mb-10 flex flex-wrap items-end justify-between gap-6">
+            <h2 className="font-display text-2xl font-semibold">Meet the community builders</h2>
+            <p className="max-w-[380px] text-sm text-text-muted">
+              A sample of the people organizing, mentoring, and shipping inside DAF.
+            </p>
+          </Reveal>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {BUILDERS.map((builder, i) => (
+              <Reveal key={builder.username} delay={i * 0.06}>
+                <BuilderCard builder={builder} />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <CommunitySection compact />
     </div>
   );

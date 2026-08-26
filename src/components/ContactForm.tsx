@@ -29,14 +29,22 @@ export function ContactForm() {
 
     setStatus('submitting');
     try {
-      // TODO: wire to a real API route (e.g. /api/contact) that sends via Resend.
-      // Left as a simulated request so the form is fully functional out of the box.
-      await new Promise((resolve) => setTimeout(resolve, 900));
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message })
+      });
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        throw new Error(body?.error ?? 'Something went wrong.');
+      }
+
       setStatus('success');
       form.reset();
-    } catch {
+    } catch (err) {
       setStatus('error');
-      setError('Something went wrong. Please try again or email us directly.');
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again or email us directly.');
     }
   }
 

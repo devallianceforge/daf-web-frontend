@@ -7,7 +7,7 @@ npm install
 npm run dev
 ```
 
-Requires Node 18.18+ (Next.js 14 requirement).
+Requires Node 20.9+ (Next.js 16 requirement).
 
 ## Before opening a PR
 
@@ -37,6 +37,13 @@ verification pass and report/fix anything that surfaces.
   where it isn't self-describing (icon-only links, the mobile menu button, etc). Respect
   `prefers-reduced-motion` for any new animation — see `globals.css` for the global rule and
   `ParticleField.tsx` for a per-component example.
+- **Blog posts**: written as MDX under `src/app/blog/(posts)/<slug>/page.mdx`, styled globally via
+  `src/mdx-components.tsx` — don't add one-off inline styles inside a post, fix the shared
+  component mapping instead so every post benefits. See `docs/CONTENT_GUIDE.md` for the full
+  add-a-post steps.
+- **Live external data** (e.g. `src/lib/github.ts`): must fail to `null`/undefined on any error,
+  never throw and never fall back to a fabricated number. Callers decide what to render (or not
+  render) when data isn't available.
 
 ## Folder map
 

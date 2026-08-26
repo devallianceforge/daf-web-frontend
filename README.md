@@ -17,15 +17,26 @@ Then open http://localhost:3000.
 
 ## What's included
 
-- `src/app/` — routes: home, `/events`, `/workshops`, `/community`, `/about`, `/contact`
+- `src/app/` — routes: home, `/events` + `/events/[slug]`, `/workshops` + `/workshops/[slug]`,
+  `/projects` + `/projects/[slug]`, `/community` + `/community/[username]`, `/blog` + MDX post
+  pages, `/about`, `/contact`, and an `/api/contact` route handler
 - `src/components/` — Hero (animated particle field + boot-sequence typewriter), Header/Footer,
-  Stats counters, Pillars, Event/Workshop cards, Community channel grid, custom cursor, magnetic
-  buttons, scroll-reveal wrapper
-- `src/data/` — site copy, nav links, social/community channels, sample events & workshops.
-  This is the layer to swap for a real CMS (Sanity/Payload — see the PRD) once you're ready to
-  go live with real content.
+  Stats counters, Pillars, Event/Workshop/Project/Builder/Blog cards, Community channel grid,
+  custom cursor, magnetic buttons, scroll-reveal wrapper
+- `src/data/` — site copy, nav links, social/community channels, sample events/workshops/projects/
+  builders, and the blog post registry. This is the layer to swap for a real CMS (Sanity/Payload
+  — see the PRD) once you're ready to go live with real content.
+- `src/lib/github.ts` — real GitHub REST API calls (not sample data) powering the live stats
+  banner on `/projects`
 - `public/logo.png` — your DAF logo, already wired into the header and footer
 - `docs/` — project documentation, see below
+
+## Contact form email
+
+The contact form posts to `/api/contact`, which sends real email via
+[Resend](https://resend.com) when `RESEND_API_KEY` is set (see `.env.example`). Without it, the
+route still validates and accepts submissions — it just logs them to the server console instead
+of sending an email — so the form works out of the box in local development.
 
 ## Documentation
 
@@ -45,13 +56,20 @@ by pulling from these tokens rather than hardcoding one-off values.
 
 ## Known placeholders / next steps
 
-- Event & workshop content in `src/data/events.ts` / `workshops.ts` is sample data — connect a
-  CMS or a database and replace these with real fetches.
-- The contact form (`src/components/ContactForm.tsx`) simulates a submit — wire it to a real API
-  route (e.g. `/api/contact` using Resend) to actually send email.
-- `/events/[slug]`, `/workshops/[slug]`, and `/projects` are referenced in the PRD but not yet
-  built — natural next additions once real content exists.
+- Event, workshop, project, and builder content in `src/data/` is sample data — connect a CMS or
+  a database and replace these with real fetches (see `docs/CONTENT_GUIDE.md`).
+- The two blog posts under `src/app/blog/(posts)/` are real, complete sample content — not lorem
+  ipsum — but written by this build, not the actual DAF team. Swap them for real posts whenever.
+- Set `RESEND_API_KEY` in `.env.local` (see `.env.example`) to make the contact form send real
+  email instead of just logging submissions server-side.
 - Add a real `favicon.ico` / `og-image` in `public/` before launch.
+- `/projects` shows **live** GitHub org stats (real API call, see `src/lib/github.ts`), but
+  individual project cards still use static contributor counts — no real DAF repo names could be
+  confirmed yet to wire per-repo live stats to honestly. See `docs/CONTENT_GUIDE.md` for exactly
+  how to flip that on once real repos exist.
+
+Every item in the original PRD roadmap is now built in some form (sample-data or live), with the
+migration path to real content documented in `docs/CONTENT_GUIDE.md` for each.
 
 ## Scripts
 

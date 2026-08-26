@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "21st": {
+      "serverUrl": "https://21st.dev/api/mcp",
+      "url": "https://21st.dev/api/mcp",
+      "headers": {
+        "x-api-key": "{env:TWENTYFIRST_API_KEY}"
+      }
+    },
+    "context7": {
+      "serverUrl": "https://mcp.context7.com/mcp",
+      "url": "https://mcp.context7.com/mcp",
+      "type": "remote",
+      "headers": {
+        "Authorization": "Bearer {env:CTX7_API_KEY}"
+      },
+      "enabled": true
+    },
+    "playwright": {
+      "type": "local",
+      "command": [
+        "npx",
+        "@playwright/mcp@latest"
+      ],
+      "enabled": true
+    }
+  }
+}
