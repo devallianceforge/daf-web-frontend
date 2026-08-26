@@ -24,11 +24,11 @@ export function Header() {
     <>
       <header
         className={cn(
-          'fixed inset-x-0 top-0 z-[1000] border-b border-transparent py-[18px] backdrop-blur-2xl transition-colors duration-300 ease-daf',
+          'fixed inset-x-0 top-0 z-1000 border-b border-transparent py-4.5 backdrop-blur-2xl transition-colors duration-300 ease-daf',
           scrolled ? 'border-border bg-bg/85' : 'bg-bg/55'
         )}
       >
-        <div className="mx-auto flex max-w-[1240px] items-center justify-between px-6">
+        <div className="mx-auto flex max-w-310 items-center justify-between px-6">
           <Link href="/" className="flex items-center">
             <Image src="/logo.png" alt="DAF" width={1048} height={130} className="h-7 w-auto" priority />
           </Link>
@@ -49,11 +49,11 @@ export function Header() {
             <button
               aria-label="Open menu"
               onClick={() => setMobileOpen(true)}
-              className="flex flex-col gap-[5px] rounded-md p-1.5 md:hidden"
+              className="flex flex-col gap-1.25 rounded-md p-1.5 md:hidden"
             >
-              <span className="h-0.5 w-[22px] rounded bg-text" />
-              <span className="h-0.5 w-[22px] rounded bg-text" />
-              <span className="h-0.5 w-[22px] rounded bg-text" />
+              <span className="h-0.5 w-5.5 rounded bg-text" />
+              <span className="h-0.5 w-5.5 rounded bg-text" />
+              <span className="h-0.5 w-5.5 rounded bg-text" />
             </button>
           </div>
         </div>

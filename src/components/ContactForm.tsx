@@ -50,7 +50,7 @@ export function ContactForm() {
 
   if (status === 'success') {
     return (
-      <div className="rounded-daf border border-mint/30 bg-mint/[0.06] p-8 text-center">
+      <div className="rounded-daf border border-mint/30 bg-mint/6 p-8 text-center">
         <p className="mb-2 font-display text-xl font-semibold text-mint">Message sent.</p>
         <p className="text-sm text-text-muted">We&apos;ll get back to you as soon as we can.</p>
       </div>
