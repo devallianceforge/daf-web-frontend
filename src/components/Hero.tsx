@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { ParticleField } from './ParticleField';
 import { MagneticButton } from './MagneticButton';
+import { PixelScatterLogo } from './PixelScatterLogo';
 
 const BOOT_MESSAGES = ['$ daf --init', '$ compiling community...', '$ loading community builders... done', '$ ready.'];
 
@@ -51,8 +52,8 @@ export function Hero() {
         className="pointer-events-none absolute left-1/2 top-[-300px] z-0 h-[900px] w-[900px] -translate-x-1/2 rounded-full blur-[10px]"
         style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.18), transparent 60%)' }}
       />
-      <div className="container relative z-[2] mx-auto max-w-[1240px] px-6">
-        <div className="max-w-[820px]">
+      <div className="container relative z-[2] mx-auto flex w-full max-w-[1240px] flex-col gap-14 px-6 py-10 lg:h-[calc(100vh-120px)] lg:min-h-[540px] lg:flex-row lg:items-stretch lg:gap-0 lg:py-0">
+        <div className="flex max-w-[820px] flex-col justify-center lg:w-1/2 lg:max-w-none lg:pr-16">
           <div className="mb-[22px] flex min-h-[20px] items-center gap-0.5 font-mono text-[13px] text-mint">
             {bootText}
             <span className="ml-[3px] inline-block h-4 w-2 animate-blink bg-mint" />
@@ -76,6 +77,10 @@ export function Hero() {
               Explore Events
             </MagneticButton>
           </div>
+        </div>
+
+        <div className="relative h-[240px] w-full lg:h-full lg:w-1/2">
+          <PixelScatterLogo sizingMode="fill" />
         </div>
       </div>
 
