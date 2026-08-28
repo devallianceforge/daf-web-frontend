@@ -33,7 +33,7 @@ export function Header() {
             <Image src="/logo.png" alt="DAF" width={1048} height={130} className="h-7 w-auto" priority />
           </Link>
 
-          <nav className="hidden gap-9 text-sm text-text-muted md:flex">
+          <nav className="hidden gap-9 text-sm text-text-muted lg:flex">
             {NAV_LINKS.map((link) => (
               <Link key={link.href} href={link.href} className="group relative py-1 transition-colors hover:text-text">
                 {link.label}
@@ -49,7 +49,7 @@ export function Header() {
             <button
               aria-label="Open menu"
               onClick={() => setMobileOpen(true)}
-              className="flex flex-col gap-1.25 rounded-md p-1.5 md:hidden"
+              className="flex flex-col gap-1.25 rounded-md p-1.5 lg:hidden"
             >
               <span className="h-0.5 w-5.5 rounded bg-text" />
               <span className="h-0.5 w-5.5 rounded bg-text" />

@@ -14,7 +14,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-[999] flex flex-col items-center justify-center gap-7 bg-bg/98 backdrop-blur-md"
+          className="fixed inset-0 z-[1001] flex flex-col items-center justify-center gap-7 bg-bg/98 backdrop-blur-md"
         >
           <button aria-label="Close menu" onClick={onClose} className="absolute right-6 top-6 text-text">
             <X size={28} />
