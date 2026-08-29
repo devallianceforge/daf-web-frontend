@@ -15,7 +15,7 @@ end-of-life:
 
 | Package | Before | Now |
 |---|---|---|
-| `next` | 14.2.15 | ^16.3.0 (current LTS) |
+| `next` | 14.2.15 | ^16.3.0 (current stable line) |
 | `react` / `react-dom` | 18.3.1 | ^19.2.0 (required by Next 16) |
 | `eslint` | 8.57.1 | ^9.20.0 (flat config) |
 | `eslint-config-next` | 14.2.15 | ^16.3.0 |
@@ -30,7 +30,10 @@ end-of-life:
   `src/app/globals.css`. See `docs/DESIGN_SYSTEM.md`.
 - **`.eslintrc.json` replaced with `eslint.config.mjs`.** Next.js 16 removed the `next lint`
   command entirely and requires ESLint's flat config format. `npm run lint` now runs `eslint .`
-  directly instead of `next lint`.
+  directly instead of `next lint`. The config uses the native flat presets shipped by
+  `eslint-config-next` (`core-web-vitals` + `typescript`) rather than a `FlatCompat` bridge —
+  the `@eslint/eslintrc` compat shim crashes with the installed ESLint 9.x, so it was dropped.
+  `.agents/**` is ignored because that directory is gitignored tooling, not app code.
 - **`postcss.config.mjs` updated** to use the `@tailwindcss/postcss` plugin (Tailwind v4's
   PostCSS integration) instead of `tailwindcss` + `autoprefixer` as two separate plugins —
   v4 handles vendor prefixing internally.
@@ -43,14 +46,8 @@ dependency and config modernization only.
 
 ## A note on verification
 
-This upgrade was authored in an environment without internet access, so `npm install` /
-`npm run build` could not be run here to confirm everything resolves cleanly. Please run:
-
-```bash
-npm install
-npm run typecheck
-npm run build
-```
-
-on the first checkout, and report back the exact output of any of these that fails — that's the
-fastest way to get it fixed.
+This upgrade was originally authored in an environment without internet access, so the dependency
+bump could not be compiled in that first pass. `npm install`, `npm run typecheck`, and
+`npm run build` have since been run and pass cleanly on the current dev branch — but if you ever
+hit a resolution or build error after touching `package.json`, report the exact command output;
+that's the fastest way to get it fixed.

@@ -17,9 +17,7 @@ npm run lint
 npm run build
 ```
 
-All three should pass cleanly — this project was authored without network access to actually run
-these locally (see root `README.md`), so treat your first local `npm run build` as the real
-verification pass and report/fix anything that surfaces.
+All three should pass cleanly — they are verified green on the current dev branch.
 
 ## Code conventions
 
@@ -29,7 +27,7 @@ verification pass and report/fix anything that surfaces.
 - **Content**: never hardcode copy that belongs in `src/data/` (see `docs/CONTENT_GUIDE.md`) into
   a component. Components should stay presentation-only.
 - **Client vs. Server Components**: default to Server Components; only add `'use client'` when a
-  file actually needs state, effects, or browser APIs (see `Hero.tsx`, `CustomCursor.tsx`,
+  file actually needs state, effects, or browser APIs (see `Hero.tsx`, `MagneticButton.tsx`,
   `ParticleField.tsx` for examples of components that legitimately need it).
 - **Animation**: reuse `<Reveal>` for scroll-in effects and the `ease-daf` timing function for
   hover/transition states rather than inventing new motion patterns per component.

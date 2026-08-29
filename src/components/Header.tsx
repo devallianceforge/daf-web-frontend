@@ -43,7 +43,7 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-4">
-            <MagneticButton href="/contact" size="sm" className="hidden sm:inline-flex">
+            <MagneticButton href="/join" size="sm" className="hidden sm:inline-flex">
               Join DAF
             </MagneticButton>
             <button

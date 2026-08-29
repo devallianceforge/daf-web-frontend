@@ -26,7 +26,7 @@ Dev Alliance Forge (DAF) is an existing, active volunteer-driven developer commu
 | Contact email | devallianceforge@gmail.com |
 | Base | Bangladesh |
 
-**Positioning (from existing brand copy):** DAF describes itself as *"a volunteer-driven community where passionate students, developers, and IT professionals and beyond come together to learn, build, and elevate."* Core brand pillars, in DAF's own words: **Forge new skills** (tutorials, projects, best practices), **Mentor each other** (peer-to-peer sessions, open-source sprints), and **Bridge global standards and local needs** (turning ideas into working solutions). Tagline: *"Your alliance for innovation and your forge for turning ambition into impact."*
+**Positioning (from existing brand copy):** DAF describes itself as *"a volunteer-driven community where passionate students, developers, and IT professionals and beyond come together to learn, build, and elevate."* Core brand pillars, in DAF's own words: **Forge new skills** (tutorials, projects, best practices), **Mentor each other** (peer-to-peer sessions, open-source sprints), and **Bridge global standards and local needs** (turning ideas into working solutions). Current site tagline (as implemented in `src/data/site.ts`): *"Your alliance for innovation, your forge for impact."*
 
 **Current site structure (baseline to improve on):** Home, Events, Workshops, Community, Contact, Developer — plus a live-chat widget, a stats strip (Total Events / Workshops / Builders / 24×7 Support), and social follow links in the header and footer. The current build is a simple, mostly static/light template with no distinctive visual identity, no motion design, and a generic layout — this is the primary gap this redesign addresses.
 
@@ -84,6 +84,11 @@ The current website functions as a basic directory of events/workshops but does 
 - **Iconography & motif:** Lean into the `< / >` bracket motif from the logo — section dividers, cursor blinkers, corner brackets on cards, terminal-style prompts (`$ daf --join`) as microcopy accents.
 - **Imagery:** Avoid generic stock photography. Favor abstract circuit/network node illustrations, isometric 3D code-block renders, generative gradient meshes, and real event/community photography (dark-graded) over polished corporate stock.
 
+> **As-implemented palette:** the shipped codebase finalizes a few of the above values — page
+> background `#06060b`, alt background `#0a0a12`, mint `#2fe6b0`, with a `95deg` gradient.
+> `docs/DESIGN_SYSTEM.md` (and the `@theme` block in `src/app/globals.css`) is the source of truth
+> for what actually ships.
+
 ### 5.2 Motion & Interaction Design ("smooth and techy")
 - **Principle:** Motion should feel like a well-engineered system, not decoration — physics-based easing (spring, not linear), consistent timing tokens, and restraint (nothing distracting from content).
 - **Hero:** Animated gradient mesh / particle network background (WebGL or Canvas) reacting subtly to cursor movement and scroll; animated headline using a text-reveal/typewriter or scramble-decode effect referencing "compiling," "initializing," or terminal boot sequences.
@@ -111,13 +116,21 @@ The current website functions as a basic directory of events/workshops but does 
 /about                  Mission, story, values, timeline
 /team                   Organizers / core team / mentors
 /partners               Sponsors & partnership info + "Become a Partner"
-/blog                   Articles, tutorials, recaps (optional phase 2)
+/blog                   Articles, tutorials, recaps
 /blog/[slug]            Article detail
 /contact                Contact form + social/channel directory
 /join                   Primary conversion page — all community channels (Discord/WhatsApp/Telegram/GitHub)
 /faq                    FAQ
 /legal/privacy, /legal/terms
 ```
+
+> **Build status (Aug 2026).** All routes above now exist as pages. Built earlier: `/` and all
+> content hubs (`/events`, `/workshops`, `/projects`, `/community`, `/about`, `/blog`,
+> `/contact`). Added in this round: `/team`, `/partners`, `/join`, `/faq`, `/legal/privacy`,
+> `/legal/terms`, plus PRD F12's `/sitemap.xml`, `/robots.txt`, and JSON-LD. Live-data gaps that
+> keep some routes partial (`/projects` per-repo stats, `/community` real builder directory &
+> leaderboard) are called out in §8/§13 and `docs/CONTENT_GUIDE.md`. Section-specific features not
+> yet wired are noted inline below.
 
 ---
 
@@ -171,15 +184,15 @@ The current website functions as a basic directory of events/workshops but does 
 | # | Requirement |
 |---|---|
 | F1 | CMS-driven content for Events, Workshops, Projects, Team, Blog — non-technical organizers must be able to publish without a developer. |
-| F2 | Event/workshop registration: either native form (stored in DB + email confirmation) or embedded third-party form (Google Form/Luma/Tally), decided in Phase 1 kickoff. |
-| F3 | Newsletter signup (email capture) integrated with an ESP (e.g., Resend/Mailchimp/Beehiiv). |
-| F4 | Contact form with spam protection (honeypot + rate limiting; avoid intrusive CAPTCHAs where possible). |
+| F2 | Event/workshop registration — **decision made during build: native forms**, posting to `/api/events/register` and `/api/workshops/register`. Submissions email the DAF team via Resend when `RESEND_API_KEY` is set, otherwise they are logged server-side. **Not yet built:** database-backed storage, confirmation email to the registrant, capacity/dedup. |
+| F3 | Newsletter signup (email capture) integrated with an ESP (e.g., Resend/Mailchimp/Beehiiv) — **not yet implemented.** |
+| F4 | Contact/registration forms: server-side validation and length guards are built. **Honeypot field + rate limiting not yet implemented** (avoid intrusive CAPTCHAs where possible). |
 | F5 | GitHub API integration for live org/repo stats (stars, contributors, recent commits) on Projects and Community pages. |
 | F6 | Social proof widgets: optionally pull recent posts/highlights from Instagram/X via their APIs or a manual "featured posts" CMS block if API access is restricted. |
-| F7 | Search (site-wide, at least for Events/Workshops/Projects/Blog) with fast client-side or Algolia-style indexed search. |
+| F7 | Search (site-wide, at least for Events/Workshops/Projects/Blog) — **not yet implemented.** |
 | F8 | Admin/CMS role-based access for organizers to manage content. |
-| F9 | Analytics integration (privacy-respecting: Plausible/PostHog) plus existing GTM container migration. |
-| F10 | Live chat widget retained/upgraded (Discord widget embed, Crisp/Tawk, or a lightweight custom component) — restyled to match the dark/gradient system. |
+| F9 | Analytics integration (privacy-respecting: Plausible/PostHog) plus existing GTM container migration — **not yet implemented.** |
+| F10 | Live chat widget retained/upgraded (Discord widget embed, Crisp/Tawk, or a lightweight custom component) — **not yet implemented.** |
 | F11 | Full social directory (Facebook, LinkedIn, Instagram, X, GitHub, WhatsApp, Telegram, Discord) present in header/footer and a dedicated `/join` hub. |
 | F12 | Sitemap.xml, robots.txt, structured data (JSON-LD for Organization + Event schema) for SEO. |
 
@@ -234,15 +247,15 @@ The current website functions as a basic directory of events/workshops but does 
 
 ## 12. Phased Roadmap
 
-| Phase | Scope | Est. Duration |
-|---|---|---|
-| **Phase 0 — Discovery & UX** | Stakeholder interviews, content audit finalization, sitemap sign-off, wireframes (low-fi), motion mood-board/animatics | 1–2 weeks |
-| **Phase 1 — Design System** | Full dark theme design tokens, component library in Figma, hero concept prototypes (2–3 directions), motion spec doc | 2 weeks |
-| **Phase 2 — Core Build** | Next.js scaffold, CMS schema, Home/Events/Workshops/Community/Contact pages, design-system implementation in code | 3–4 weeks |
-| **Phase 3 — Motion & Polish** | Hero WebGL/particle system, scroll choreography, micro-interactions, page transitions, performance tuning | 2 weeks |
-| **Phase 4 — Integrations** | GitHub API stats, newsletter/ESP, forms + email, analytics, live chat | 1–2 weeks |
-| **Phase 5 — QA & Launch** | Cross-browser/device QA, accessibility audit, performance audit, SEO checklist, staged rollout | 1 week |
-| **Phase 6 — Post-launch** | Blog/MDX system, Bangla localization, builder-profile gamification, advanced search | Ongoing |
+| Phase | Scope | Est. Duration | Status (Aug 2026) |
+|---|---|---|---|
+| **Phase 0 — Discovery & UX** | Stakeholder interviews, content audit finalization, sitemap sign-off, wireframes (low-fi), motion mood-board/animatics | 1–2 weeks | Partial — sitemap & positioning signed off in this doc; wireframes/mood-board weren&apos;t produced as separate artifacts |
+| **Phase 1 — Design System** | Full dark theme design tokens, component library in Figma, hero concept prototypes (2–3 directions), motion spec doc | 2 weeks | Partial — tokens, motion spec, and hero prototype are implemented in code (`docs/DESIGN_SYSTEM.md`); no Figma library |
+| **Phase 2 — Core Build** | Next.js scaffold, CMS schema, Home/Events/Workshops/Community/Contact pages, design-system implementation in code | 3–4 weeks | Done for code (all content hubs + `/about`, `/projects`, `/blog` built); CMS schema deferred to post-launch |
+| **Phase 3 — Motion & Polish** | Hero WebGL/particle system, scroll choreography, micro-interactions, page transitions, performance tuning | 2 weeks | Done — Canvas particle hero (WebGL intentionally swapped), scroll reveals, custom SVG cursors, magnetic buttons, boot-sequence typewriter |
+| **Phase 4 — Integrations** | GitHub API stats, newsletter/ESP, forms + email, analytics, live chat | 1–2 weeks | Partial — GitHub org stats + contact/registration email via Resend done; newsletter (F3), analytics (F9), live chat (F10) pending |
+| **Phase 5 — QA & Launch** | Cross-browser/device QA, accessibility audit, performance audit, SEO checklist, staged rollout | 1 week | Not started |
+| **Phase 6 — Post-launch** | Blog/MDX system, Bangla localization, builder-profile gamification, advanced search | Ongoing | Blog/MDX shipped early with sample content; CMS, localization, gamification, search pending |
 
 ---
 
