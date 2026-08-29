@@ -1,35 +1,68 @@
 import type { Metadata } from 'next';
 import { EVENTS } from '@/data/events';
-import { EventCard } from '@/components/EventCard';
 import { Reveal } from '@/components/Reveal';
+import { EventsHero } from '@/components/events/EventsHero';
+import { FeaturedEventCard } from '@/components/events/FeaturedEventCard';
+import { EventExplorer } from '@/components/events/EventExplorer';
+import { PastEvents } from '@/components/events/PastEvents';
+import { WhyAttendEvents } from '@/components/events/WhyAttendEvents';
+import { EventsCTA } from '@/components/events/EventsCTA';
 
 export const metadata: Metadata = {
   title: 'Events — Dev Alliance Forge',
-  description: 'Hackathons, meetups, and build-nights hosted by the DAF community.'
+  description:
+    'Hackathons, meetups, build nights, and technical sessions hosted by the Dev Alliance Forge community.'
 };
 
 export default function EventsPage() {
-  return (
-    <section className="pb-[120px] pt-[160px]">
-      <div className="mx-auto max-w-[1240px] px-6">
-        <Reveal className="mb-14 max-w-[640px]">
-          <span className="mb-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-mint">
-            <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-mint" />
-            Events
-          </span>
-          <h1 className="font-display text-[clamp(32px,4.5vw,52px)] font-semibold">
-            Build together, in person and online.
-          </h1>
-        </Reveal>
+  const events = [...EVENTS].sort((a, b) =>
+    a.date > b.date ? 1 : -1
+  );
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {EVENTS.map((event, i) => (
-            <Reveal key={event.slug} delay={i * 0.08}>
-              <EventCard event={event} />
+  const [featuredEvent, ...remainingEvents] = events;
+
+  return (
+    <main>
+      <EventsHero />
+
+      <section className="pb-[120px]">
+        <div className="mx-auto max-w-[1240px] px-6">
+          {featuredEvent && (
+            <Reveal>
+              <FeaturedEventCard event={featuredEvent} />
             </Reveal>
-          ))}
+          )}
+
+          {remainingEvents.length > 0 && (
+            <div className="mt-20">
+              <Reveal className="mb-10 flex flex-wrap items-end justify-between gap-5">
+                <div>
+                  <span className="font-mono text-xs uppercase tracking-wider text-mint">
+                    Explore events
+                  </span>
+
+                  <h2 className="mt-3 font-display text-[clamp(28px,3.5vw,42px)] font-semibold">
+                    Find where you want to show up next.
+                  </h2>
+                </div>
+
+                <p className="max-w-[430px] text-[14px] leading-6 text-text-muted">
+                  Browse upcoming hackathons, build nights, meetups, and
+                  community sessions by topic, format, or location.
+                </p>
+              </Reveal>
+
+              <Reveal>
+                <EventExplorer events={remainingEvents} />
+              </Reveal>
+            </div>
+          )}
         </div>
-      </div>
-    </section>
+      </section>
+      <PastEvents />
+<WhyAttendEvents />
+<EventsCTA />
+
+    </main>
   );
 }

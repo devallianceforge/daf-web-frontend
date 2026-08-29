@@ -1,5 +1,5 @@
 import { EVENTS } from '@/data/events';
-import { EventCard } from './EventCard';
+import { EventCard } from './events/EventCard';
 import { Reveal } from './Reveal';
 import { MagneticButton } from './MagneticButton';
 
