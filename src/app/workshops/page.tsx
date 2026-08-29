@@ -1,35 +1,88 @@
 import type { Metadata } from 'next';
-import { WORKSHOPS } from '@/data/workshops';
-import { WorkshopCard } from '@/components/WorkshopCard';
+
+import {
+  WORKSHOPS,
+  WORKSHOP_TRACKS,
+  getFeaturedWorkshop,
+  getWorkshopInstructors
+} from '@/data/workshops';
+
 import { Reveal } from '@/components/Reveal';
+import { WorkshopsHero } from '@/components/workshops/WorkshopsHero';
+import { FeaturedWorkshopCard } from '@/components/workshops/FeaturedWorkshopCard';
+import { WorkshopExplorer } from '@/components/workshops/WorkshopExplorer';
+import { WorkshopTracks } from '@/components/workshops/WorkshopTracks';
+import { InstructorSection } from '@/components/workshops/InstructorSection';
+import { WorkshopsCTA } from '@/components/workshops/WorkshopsCTA';
 
 export const metadata: Metadata = {
   title: 'Workshops — Dev Alliance Forge',
-  description: 'Hands-on workshops run by the DAF community, for the community.'
+  description:
+    'Hands-on workshops run by the DAF community to help developers build practical, production-ready skills.'
 };
 
 export default function WorkshopsPage() {
-  return (
-    <section className="pb-[120px] pt-[160px]">
-      <div className="mx-auto max-w-[1240px] px-6">
-        <Reveal className="mb-14 max-w-[640px]">
-          <span className="mb-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-mint">
-            <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-mint" />
-            Workshops
-          </span>
-          <h1 className="font-display text-[clamp(32px,4.5vw,52px)] font-semibold">
-            Level up with hands-on sessions.
-          </h1>
-        </Reveal>
+  const featuredWorkshop =
+    getFeaturedWorkshop() ?? WORKSHOPS[0];
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {WORKSHOPS.map((workshop, i) => (
-            <Reveal key={workshop.slug} delay={i * 0.08}>
-              <WorkshopCard workshop={workshop} />
+  const remainingWorkshops = WORKSHOPS.filter(
+    (workshop) => workshop.slug !== featuredWorkshop?.slug
+  );
+
+  const instructors = getWorkshopInstructors();
+
+  return (
+    <main>
+      <WorkshopsHero />
+
+      <section className="pb-[120px]">
+        <div className="mx-auto max-w-[1240px] px-6">
+          {featuredWorkshop && (
+            <Reveal>
+              <FeaturedWorkshopCard
+                workshop={featuredWorkshop}
+              />
             </Reveal>
-          ))}
+          )}
+
+          {remainingWorkshops.length > 0 && (
+            <div className="mt-20">
+              <Reveal className="mb-10 flex flex-wrap items-end justify-between gap-5">
+                <div>
+                  <span className="font-mono text-xs uppercase tracking-wider text-mint">
+                    Explore workshops
+                  </span>
+
+                  <h2 className="mt-3 font-display text-[clamp(28px,3.5vw,42px)] font-semibold">
+                    Find the skill you want to strengthen next.
+                  </h2>
+                </div>
+
+                <p className="max-w-[430px] text-[14px] leading-6 text-text-muted">
+                  Browse hands-on sessions by level, topic, and format — then
+                  choose the workshop that matches where you are and where you
+                  want to go next.
+                </p>
+              </Reveal>
+
+              <Reveal>
+                <WorkshopExplorer
+                  workshops={remainingWorkshops}
+                />
+              </Reveal>
+            </div>
+          )}
         </div>
-      </div>
-    </section>
+      </section>
+
+      <WorkshopTracks
+        workshops={WORKSHOPS}
+        tracks={WORKSHOP_TRACKS}
+      />
+
+      <InstructorSection instructors={instructors} />
+
+      <WorkshopsCTA />
+    </main>
   );
 }

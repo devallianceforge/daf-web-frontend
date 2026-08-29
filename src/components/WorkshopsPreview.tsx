@@ -1,5 +1,5 @@
 import { WORKSHOPS } from '@/data/workshops';
-import { WorkshopCard } from './WorkshopCard';
+import { WorkshopCard } from './workshops/WorkshopCard';
 import { Reveal } from './Reveal';
 import { MagneticButton } from './MagneticButton';
 
