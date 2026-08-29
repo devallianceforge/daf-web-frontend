@@ -1,5 +1,5 @@
 import { BLOG_POSTS } from '@/data/blog';
-import { BlogCard } from './BlogCard';
+import { BlogCard } from './blog/BlogCard';
 import { Reveal } from './Reveal';
 import { MagneticButton } from './MagneticButton';
 

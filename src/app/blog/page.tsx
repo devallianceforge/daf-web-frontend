@@ -1,37 +1,69 @@
 import type { Metadata } from 'next';
 import { BLOG_POSTS } from '@/data/blog';
-import { BlogCard } from '@/components/BlogCard';
 import { Reveal } from '@/components/Reveal';
+import { BlogHero } from '@/components/blog/BlogHero';
+import { FeaturedBlogCard } from '@/components/blog/FeaturedBlogCard';
+import { BlogExplorer } from '@/components/blog/BlogExplorer';
+import { DeveloperPaths } from '@/components/blog/DeveloperPaths';
+import { FromTheForge } from '@/components/blog/FromTheForge';
+import { InsideDAF } from '@/components/blog/InsideDAF';
+import { BlogCTA } from '@/components/blog/BlogCTA';
 
 export const metadata: Metadata = {
   title: 'Blog — Dev Alliance Forge',
-  description: 'Tutorials, community stories, and recaps from Dev Alliance Forge.'
+  description:
+    'Technical guides, community stories, project breakdowns, and lessons from Dev Alliance Forge.'
 };
 
 export default function BlogIndexPage() {
-  const posts = [...BLOG_POSTS].sort((a, b) => (a.date < b.date ? 1 : -1));
+  const posts = [...BLOG_POSTS].sort((a, b) =>
+    a.date < b.date ? 1 : -1
+  );
+
+  const [featuredPost, ...remainingPosts] = posts;
 
   return (
-    <section className="pb-[120px] pt-[160px]">
-      <div className="mx-auto max-w-[1240px] px-6">
-        <Reveal className="mb-14 max-w-[640px]">
-          <span className="mb-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-mint">
-            <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-mint" />
-            Blog
-          </span>
-          <h1 className="font-display text-[clamp(32px,4.5vw,52px)] font-semibold">
-            Tutorials, stories, and recaps.
-          </h1>
-        </Reveal>
+    <main>
+      <BlogHero />
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {posts.map((post, i) => (
-            <Reveal key={post.slug} delay={i * 0.08}>
-              <BlogCard post={post} />
+      <section className="pb-[120px]">
+        <div className="mx-auto max-w-[1240px] px-6">
+          {featuredPost && (
+            <Reveal>
+              <FeaturedBlogCard post={featuredPost} />
             </Reveal>
-          ))}
+          )}
+
+          {remainingPosts.length > 0 && (
+            <div className="mt-20">
+              <Reveal className="mb-10 flex flex-wrap items-end justify-between gap-5">
+                <div>
+                  <span className="font-mono text-xs uppercase tracking-wider text-mint">
+                    Explore the forge
+                  </span>
+
+                  <h2 className="mt-3 font-display text-[clamp(28px,3.5vw,42px)] font-semibold">
+                    Find what you want to learn next.
+                  </h2>
+                </div>
+
+                <p className="max-w-[420px] text-[14px] leading-6 text-text-muted">
+                  Browse technical guides, community stories, career lessons,
+                  open-source knowledge, and practical insights from DAF builders.
+                </p>
+              </Reveal>
+
+              <Reveal>
+                <BlogExplorer posts={remainingPosts} />
+              </Reveal>
+            </div>
+          )}
         </div>
-      </div>
-    </section>
+      </section>
+      < DeveloperPaths/>
+      <FromTheForge />
+      <InsideDAF />
+      <BlogCTA />
+    </main>
   );
 }
