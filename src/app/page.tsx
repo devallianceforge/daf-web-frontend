@@ -11,7 +11,7 @@ import { CTASection } from '@/components/CTASection';
 
 export default function HomePage() {
   return (
-    <>
+  <>
       <Hero />
       <StatsSection />
       <PillarsSection />
