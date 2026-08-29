@@ -1,0 +1,300 @@
+import { BlogPostHeader } from '@/components/blog/BlogPostHeader';
+import { BlogPostFooter } from '@/components/blog/BlogPostFooter';
+
+export const metadata = {
+  title: 'What Junior Developers Should Build Instead of Another Todo App — DAF Blog',
+  description:
+    'Portfolio projects become valuable when they demonstrate real decisions, real users, and real engineering tradeoffs.'
+};
+
+<BlogPostHeader
+  title="What Junior Developers Should Build Instead of Another Todo App"
+  date="2026-08-18"
+  readTime="6 min read"
+  tags={['Career', 'Engineering']}
+  author="DAF Career Circle"
+/>
+
+There is nothing wrong with building a todo app.
+
+The problem is that thousands of other developers have already built the same thing.
+
+If your portfolio contains only basic clones, tutorial projects, and simple CRUD apps, recruiters and technical reviewers have a hard time understanding what you can actually do when a project becomes messy, ambiguous, or real.
+
+A strong junior portfolio should demonstrate more than syntax.
+
+It should show how you think.
+
+## Build something with a real user
+
+One of the easiest ways to make a project more meaningful is to build it for someone who will actually use it.
+
+That could be:
+
+- a small business,
+- a student club,
+- a family business,
+- a local organization,
+- a teacher,
+- a content creator,
+- or a community group.
+
+Once another person depends on your application, new engineering problems appear naturally.
+
+You have to think about:
+
+- usability,
+- edge cases,
+- reliability,
+- content management,
+- responsiveness,
+- deployment,
+- feedback,
+- and maintenance.
+
+That experience is much closer to professional development than copying another tutorial.
+
+## Build a project with an admin workflow
+
+A public landing page is useful, but an application becomes more interesting when someone has to manage its content.
+
+For example, instead of building a simple restaurant website, build a system where the restaurant owner can:
+
+```text
+- add menu items
+- update prices
+- mark items unavailable
+- upload images
+- manage featured dishes
+- update opening hours
+```
+
+Now the project demonstrates:
+
+```text
+Public UI
++
+Authentication
++
+Database
++
+Admin dashboard
++
+CRUD operations
++
+Validation
++
+Deployment
+```
+
+That tells a much stronger story about your ability.
+
+## Build something where the data actually changes
+
+Many student projects use hardcoded arrays forever.
+
+That is fine while learning UI development, but real applications usually need persistent data.
+
+Try building something where users or administrators can create, update, or remove information.
+
+Examples include:
+
+```text
+Event management platform
+Portfolio CMS
+Restaurant menu manager
+Clinic appointment system
+Community project directory
+Inventory tracker
+Workshop registration system
+```
+
+A project becomes significantly more valuable when you can explain how data moves through the application.
+
+## Build around a real problem
+
+Avoid starting with:
+
+> What technology should I use?
+
+Start with:
+
+> What problem am I trying to solve?
+
+Then choose the technology that fits.
+
+For example, imagine a developer community has trouble managing workshops.
+
+A useful application might allow organizers to:
+
+```text
+create workshops
+publish schedules
+accept registrations
+track attendance
+manage instructors
+share resources
+```
+
+Now your project has a clear purpose.
+
+Technology becomes the implementation detail rather than the entire idea.
+
+## Show engineering decisions
+
+A strong portfolio project gives you something to talk about during an interview.
+
+You should be able to explain decisions such as:
+
+```text
+Why did you choose Next.js?
+
+Why did you use server components here?
+
+Why did you use Supabase?
+
+How did you handle authentication?
+
+How did you structure the database?
+
+How did you prevent unauthorized writes?
+
+Why did you organize components this way?
+```
+
+The interviewer is often more interested in your reasoning than the size of the application.
+
+## Include constraints
+
+Real projects always have constraints.
+
+Maybe the client needs:
+
+- a free hosting solution,
+- a mobile-first design,
+- an easy admin interface,
+- low maintenance,
+- simple authentication,
+- or fast deployment.
+
+Constraints force you to make tradeoffs.
+
+Those tradeoffs make a project interesting.
+
+For example:
+
+```text
+"We used Supabase because the project needed authentication,
+database storage, and row-level security without requiring a
+separate backend server."
+```
+
+That is a much stronger portfolio explanation than:
+
+```text
+"I used Supabase because it was in the tutorial."
+```
+
+## Build something that evolves
+
+One of the best portfolio projects is a project that grows through several versions.
+
+Start small:
+
+```text
+v1
+Public website
+```
+
+Then add:
+
+```text
+v2
+Admin dashboard
+```
+
+Then:
+
+```text
+v3
+Authentication
+Search
+Filters
+Analytics
+```
+
+This demonstrates something professional developers do constantly:
+
+refactoring and extending existing systems without rebuilding everything from scratch.
+
+## Document what you learned
+
+Your portfolio should not only show the finished interface.
+
+Explain the process.
+
+A good project case study can include:
+
+```text
+Problem
+↓
+Requirements
+↓
+Technology decisions
+↓
+Implementation
+↓
+Challenges
+↓
+Solutions
+↓
+Result
+↓
+What you would improve next
+```
+
+This gives reviewers insight into how you work.
+
+## Good project ideas for junior developers
+
+Instead of another todo app, consider building:
+
+```text
+1. Community event management platform
+
+2. Small-business CMS website
+
+3. Appointment booking system
+
+4. Restaurant management website
+
+5. Developer portfolio CMS
+
+6. Student project collaboration platform
+
+7. Local service marketplace
+
+8. Workshop registration system
+
+9. Inventory and order dashboard
+
+10. Open-source project directory
+```
+
+None of these ideas need to become huge.
+
+A small project executed carefully is more valuable than a massive unfinished system.
+
+## The project is evidence
+
+Your portfolio is not supposed to prove that you know every technology.
+
+It should provide evidence that you can take a problem, understand its requirements, make technical decisions, build a solution, fix problems along the way, and deliver something that works.
+
+That is what separates a project from an exercise.
+
+Build fewer projects if necessary.
+
+Just make sure the projects you build give you something meaningful to explain.
+
+<BlogPostFooter />

@@ -1,0 +1,205 @@
+import { BlogPostHeader } from '@/components/blog/BlogPostHeader';
+import { BlogPostFooter } from '@/components/blog/BlogPostFooter';
+
+export const metadata = {
+  title: 'How to Structure a Next.js Project Without Overcomplicating It — DAF Blog',
+  description:
+    'A practical look at components, features, data, and utilities — and how to keep a growing Next.js project maintainable.'
+};
+
+<BlogPostHeader
+  title="How to Structure a Next.js Project Without Overcomplicating It"
+  date="2026-08-22"
+  readTime="8 min read"
+  tags={['Engineering', 'Web']}
+  author="DAF Engineering Team"
+/>
+
+A good project structure should make development easier, not make your codebase feel more complicated than the product itself.
+
+As a Next.js application grows, the real challenge is rarely creating new files. The challenge is knowing where those files belong, how responsibilities should be separated, and how another developer can understand the project without spending an hour navigating the repository.
+
+## Start simple
+
+You do not need an elaborate architecture on day one.
+
+A small Next.js project can comfortably begin with:
+
+```text
+src/
+├── app/
+├── components/
+├── data/
+└── lib/
+```
+
+That structure is already enough for many projects.
+
+The goal is not to create as many folders as possible. The goal is to make responsibilities obvious.
+
+## Let the structure grow with the project
+
+Suppose your project begins with only a handful of components:
+
+```text
+components/
+├── Navbar.tsx
+├── Footer.tsx
+├── BlogCard.tsx
+├── EventCard.tsx
+└── CTASection.tsx
+```
+
+Keeping them together is perfectly reasonable.
+
+But once a feature starts accumulating several related components, a flat folder becomes harder to scan.
+
+For example:
+
+```text
+components/
+├── BlogCard.tsx
+├── BlogHero.tsx
+├── BlogExplorer.tsx
+├── BlogCTA.tsx
+├── EventCard.tsx
+├── EventHero.tsx
+├── EventFilters.tsx
+├── Navbar.tsx
+└── Footer.tsx
+```
+
+At this point, grouping by feature becomes useful:
+
+```text
+components/
+├── blog/
+│   ├── BlogCard.tsx
+│   ├── BlogHero.tsx
+│   ├── BlogExplorer.tsx
+│   └── BlogCTA.tsx
+│
+├── events/
+│   ├── EventCard.tsx
+│   ├── EventHero.tsx
+│   └── EventFilters.tsx
+│
+├── Navbar.tsx
+└── Footer.tsx
+```
+
+This is not about making the architecture look impressive.
+
+It is about reducing the amount of searching developers have to do.
+
+## Keep application data separate from presentation
+
+If several parts of the application use the same content, avoid duplicating that content directly inside UI components.
+
+Instead of putting article metadata inside a page:
+
+```tsx
+const posts = [
+  // article objects
+];
+```
+
+you can keep reusable content in:
+
+```text
+src/data/blog.ts
+```
+
+and import it where needed:
+
+```tsx
+import { BLOG_POSTS } from '@/data/blog';
+```
+
+This keeps your components focused on presentation while your data remains reusable.
+
+## Separate utilities from UI components
+
+A component should not become the place where every helper function in the application lives.
+
+Reusable logic can go into:
+
+```text
+src/lib/
+├── utils.ts
+├── formatting.ts
+└── validation.ts
+```
+
+This makes it easier to test and reuse functionality without tying it to a particular component.
+
+## Avoid abstraction for abstraction's sake
+
+Developers sometimes create structures like:
+
+```text
+features/
+modules/
+services/
+repositories/
+providers/
+adapters/
+```
+
+before the application has any real need for them.
+
+Those patterns can be valuable in large systems, but using them too early often creates more complexity than they solve.
+
+Architecture should respond to actual problems.
+
+If your project only has five components, creating five architectural layers will not make it more maintainable.
+
+## Group by responsibility
+
+A simple rule works surprisingly well:
+
+> Files that change together should usually live close together.
+
+Blog-specific components belong together.
+
+Shared components used throughout the application should remain shared.
+
+Reusable data belongs outside presentation components.
+
+Utilities belong outside feature UI.
+
+This makes the repository easier to understand because location starts communicating responsibility.
+
+## Refactor when patterns become obvious
+
+You do not need to predict the final architecture of a project.
+
+Start with the simplest structure that works.
+
+When you notice several related files growing together, refactor them.
+
+When a component becomes too large, split it.
+
+When logic is reused, extract it.
+
+When a folder becomes difficult to navigate, reorganize it.
+
+That approach is often safer than designing a complicated architecture before the application has grown enough to justify it.
+
+## Structure should reduce friction
+
+There is no universally perfect Next.js folder structure.
+
+The best structure is the one that helps your team:
+
+- find files quickly,
+- understand responsibilities,
+- reuse logic safely,
+- add features without breaking unrelated areas,
+- and onboard new contributors without unnecessary confusion.
+
+Your project structure should serve your developers.
+
+Your developers should not have to serve the project structure.
+
+<BlogPostFooter />

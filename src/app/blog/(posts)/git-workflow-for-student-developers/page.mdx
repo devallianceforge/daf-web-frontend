@@ -1,0 +1,316 @@
+import { BlogPostHeader } from '@/components/blog/BlogPostHeader';
+import { BlogPostFooter } from '@/components/blog/BlogPostFooter';
+
+export const metadata = {
+  title: 'A Git Workflow Every Student Developer Should Know — DAF Blog',
+  description:
+    'Branches, commits, pull requests, and collaboration explained with a workflow you can actually use on real team projects.'
+};
+
+<BlogPostHeader
+  title="A Git Workflow Every Student Developer Should Know"
+  date="2026-08-20"
+  readTime="7 min read"
+  tags={['Engineering', 'Open Source']}
+  author="DAF Mentor Team"
+/>
+
+Git feels simple when you work alone.
+
+You change a file, run `git add`, commit, and push.
+
+The confusion usually starts when another developer is working on the same project.
+
+Suddenly there are branches, pull requests, merge conflicts, commit conventions, reviews, and the very real possibility of accidentally breaking code that someone else is relying on.
+
+A good Git workflow solves that problem by making collaboration predictable.
+
+## 1. Keep the main branch stable
+
+Your `main` branch should represent code that is already working.
+
+Avoid building unfinished features directly inside it.
+
+Instead, create a separate branch for each meaningful piece of work.
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b feature/blog-redesign
+```
+
+Now your new work is isolated from the stable version of the project.
+
+A useful branch naming pattern is:
+
+```text
+feature/blog-redesign
+feature/admin-dashboard
+
+fix/mobile-navbar
+fix/login-redirect
+
+refactor/blog-components
+chore/update-dependencies
+```
+
+The exact naming convention matters less than being consistent.
+
+## 2. Make focused commits
+
+A commit should represent one understandable change.
+
+Avoid commit messages like:
+
+```text
+update
+changes
+final
+working
+fixed stuff
+```
+
+They tell your teammates almost nothing.
+
+A better message looks like:
+
+```text
+feat: add blog search and category filters
+```
+
+or:
+
+```text
+fix: prevent mobile menu overflow
+```
+
+or:
+
+```text
+refactor: group blog components by feature
+```
+
+A useful convention is:
+
+```text
+feat:     new functionality
+fix:      bug fix
+refactor: code restructuring without changing behavior
+chore:    maintenance or configuration
+docs:     documentation
+style:    formatting or visual-only changes
+```
+
+You do not need to follow this convention perfectly.
+
+The important part is that another developer can look at the commit history and understand what happened.
+
+## 3. Commit at logical milestones
+
+Do not wait until an entire feature is finished before making your first commit.
+
+At the same time, do not commit every tiny keystroke.
+
+A good milestone might be:
+
+```text
+feat: build blog hero and featured article
+```
+
+Then:
+
+```text
+feat: add blog search and category filters
+```
+
+Then:
+
+```text
+feat: add developer learning paths
+```
+
+Each commit leaves the project in a meaningful state.
+
+This makes bugs easier to trace and changes easier to review.
+
+## 4. Pull before you push
+
+When several people are working on the same repository, the remote branch may have changed since your last pull.
+
+Before pushing your completed work, update your branch.
+
+```bash
+git checkout main
+git pull origin main
+```
+
+Then return to your feature branch and merge or rebase the latest changes according to your team's workflow.
+
+For a simple student project:
+
+```bash
+git checkout feature/blog-redesign
+git merge main
+```
+
+If conflicts appear, resolve them locally before opening the pull request.
+
+## 5. Understand merge conflicts instead of fearing them
+
+A merge conflict simply means Git found two changes to the same area of a file and cannot safely decide which version should win.
+
+You might see:
+
+```text
+<<<<<<< HEAD
+your version
+=======
+another developer's version
+>>>>>>> main
+```
+
+Your job is to decide what the final code should look like, remove the conflict markers, test the result, and commit the resolution.
+
+Conflicts are normal in collaborative projects.
+
+The goal is not to avoid them forever.
+
+The goal is to become comfortable resolving them carefully.
+
+## 6. Use pull requests as a communication tool
+
+A pull request is more than a button for merging branches.
+
+It gives your teammates a clear place to understand:
+
+- what changed,
+- why it changed,
+- how it was tested,
+- whether there are known limitations,
+- and what they should review.
+
+A useful pull request description can be simple:
+
+```text
+## What changed
+
+- redesigned blog hero
+- added featured article card
+- added search and category filters
+
+## Tested
+
+- desktop layout
+- mobile layout
+- category filtering
+- article search
+```
+
+That is much more useful than:
+
+```text
+done
+```
+
+## 7. Do not commit secrets
+
+Never commit files containing credentials such as:
+
+```text
+.env
+.env.local
+.env.production
+```
+
+Make sure they are listed inside `.gitignore`.
+
+If other developers need to know which variables are required, provide something like:
+
+```text
+.env.example
+```
+
+with placeholders:
+
+```bash
+NEXT_PUBLIC_API_URL=
+NEXT_PUBLIC_SUPABASE_URL=
+```
+
+The example describes the configuration without exposing the real credentials.
+
+## 8. Delete finished branches
+
+Once a feature has been reviewed and merged, the branch has completed its job.
+
+You can remove it locally:
+
+```bash
+git branch -d feature/blog-redesign
+```
+
+and delete the remote branch when appropriate.
+
+Keeping dozens of abandoned branches makes a repository harder to navigate.
+
+## A practical workflow
+
+For most student and small-team projects, this process is enough:
+
+```text
+1. Update main
+        ↓
+2. Create feature branch
+        ↓
+3. Build one logical feature
+        ↓
+4. Test it
+        ↓
+5. Commit it
+        ↓
+6. Push the branch
+        ↓
+7. Open pull request
+        ↓
+8. Review and merge
+        ↓
+9. Delete the branch
+```
+
+For example:
+
+```bash
+git checkout main
+git pull origin main
+
+git checkout -b feature/events-filter
+
+# build and test the feature
+
+git add .
+git commit -m "feat: add event filtering"
+
+git push -u origin feature/events-filter
+```
+
+Then open the pull request on GitHub.
+
+## Git is really about coordination
+
+The commands themselves are not the difficult part.
+
+The real skill is learning how to leave a clean trail of decisions for everyone else working on the project.
+
+Good branches isolate work.
+
+Good commits explain progress.
+
+Good pull requests communicate intent.
+
+And a stable `main` branch gives the entire team somewhere reliable to return to.
+
+Once you understand that mental model, Git stops feeling like a collection of mysterious commands and starts feeling like what it actually is:
+
+a collaboration system for developers.
+
+<BlogPostFooter />

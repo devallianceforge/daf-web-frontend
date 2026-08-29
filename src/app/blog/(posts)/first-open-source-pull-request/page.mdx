@@ -1,4 +1,5 @@
-import { BlogPostHeader } from '@/components/BlogPostHeader';
+import { BlogPostHeader } from '@/components/blog/BlogPostHeader';
+import { BlogPostFooter } from '@/components/blog/BlogPostFooter';
 
 export const metadata = {
   title: '5 Tips for Your First Open Source Pull Request — DAF Blog',
@@ -14,48 +15,382 @@ export const metadata = {
   author="DAF Mentor Team"
 />
 
-Opening your first pull request is rarely blocked by skill. It's blocked by not knowing the
-unwritten process — and every maintainer assumes you already know it. Here's what actually trips
-people up at DAF build nights, in order.
+Opening your first pull request is rarely blocked by skill.
 
-## 1. Read the contributing guide before the code
+Most of the time, the difficult part is understanding the process around the code.
 
-Most repos have a `CONTRIBUTING.md`. It tells you the branch naming convention, the commit
-message format, and whether tests are required. Skipping it is the single most common reason a
-first PR gets stuck in review longer than it should.
+You may know how to write the fix, but still be unsure about:
 
-## 2. Start with issues labeled for newcomers
+```text
+which branch to use
 
-Look for `good-first-issue` or `help-wanted` labels. They exist specifically so maintainers can
-signal "this is scoped small enough to be a safe first contribution." Jumping straight to an
-unlabeled, open-ended issue is where most people stall out.
+how to name the commit
 
-```bash
-# Fork, then clone your fork — not the original repo
-git clone https://github.com/your-username/the-project.git
-cd the-project
-git checkout -b fix/short-description
+whether you should open an issue first
+
+how detailed the PR description should be
+
+what happens when a reviewer asks for changes
 ```
 
-## 3. Keep the PR small and focused
+That uncertainty is completely normal.
 
-One logical change per pull request. A PR that fixes a typo *and* refactors a function *and* adds
-a feature is much harder to review — and much more likely to sit unreviewed. If you notice
-something else that needs fixing, open a separate issue for it instead of scope-creeping the PR
-you're already in.
+Here are five things that make a first open-source contribution much easier.
 
-## 4. Write the PR description for a stranger
+## 1. Read the contributing guide before touching the code
 
-Assume the reviewer has zero context. State what changed, why, and how you tested it. A PR titled
-"fix" with an empty description gets reviewed last, if at all — one titled "Fix null pointer in
-event date formatting when timezone is missing" gets reviewed first.
+Before cloning the project, check whether the repository contains:
 
-## 5. Expect at least one round of feedback
+```text
+CONTRIBUTING.md
 
-Review comments are not a verdict on your ability — they're the normal shape of how code gets
-better before merging. The contributors people think of as "good at open source" are usually just
-the ones who don't take the first round of comments personally and keep iterating.
+README.md
 
-If you want a low-stakes place to try this for the first time, our
-[Build Night: Open Source Sprint](/events/build-night-open-source-sprint) is built exactly for
-that — mentors on hand the whole time.
+CODE_OF_CONDUCT.md
+
+development setup instructions
+```
+
+The contributing guide often explains:
+
+- branch naming,
+- commit conventions,
+- testing requirements,
+- formatting rules,
+- issue workflow,
+- and pull request expectations.
+
+Skipping this step is one of the easiest ways to create unnecessary review work.
+
+If the maintainers already documented how they want contributions handled, follow their process.
+
+## 2. Start with a small, clearly scoped issue
+
+Your first contribution does not need to be impressive.
+
+It needs to be understandable and finishable.
+
+Look for labels such as:
+
+```text
+good first issue
+
+help wanted
+
+beginner friendly
+
+documentation
+```
+
+These usually indicate issues that maintainers have intentionally scoped for contributors.
+
+A small fix gives you the chance to learn the repository workflow without also solving a massive technical problem.
+
+## 3. Create a dedicated branch
+
+Do not make your changes directly on `main`.
+
+After cloning your fork:
+
+```bash
+git clone https://github.com/your-username/the-project.git
+cd the-project
+```
+
+create a branch for the contribution:
+
+```bash
+git checkout -b fix/event-date-formatting
+```
+
+A clear branch name gives everyone immediate context about what the branch is for.
+
+Useful patterns include:
+
+```text
+fix/button-alignment
+
+docs/update-installation-guide
+
+feat/add-search-filter
+
+refactor/api-error-handling
+```
+
+## 4. Keep the pull request focused
+
+One pull request should solve one logical problem.
+
+Suppose you are fixing a date-formatting bug and notice several unrelated things that could be improved.
+
+Avoid turning the PR into:
+
+```text
+Fix date formatting
++
+Redesign event card
++
+Rename variables
++
+Update dependencies
++
+Refactor API calls
+```
+
+That makes review much harder.
+
+Instead, keep your original PR focused and create separate issues or pull requests for unrelated improvements.
+
+Smaller PRs are:
+
+```text
+easier to review
+
+easier to test
+
+easier to understand
+
+easier to merge
+
+easier to revert
+```
+
+## 5. Write a useful pull request description
+
+Do not assume the reviewer already understands your changes.
+
+Explain what you changed and why.
+
+A simple PR description might look like:
+
+```text
+## What changed
+
+- fixed incorrect event date formatting
+- added fallback when timezone is missing
+
+## Why
+
+Events without timezone data were rendering an invalid date.
+
+## Tested
+
+- event with timezone
+- event without timezone
+- mobile event card
+```
+
+That gives the maintainer enough context to begin reviewing immediately.
+
+A title such as:
+
+```text
+Fix event date formatting when timezone is missing
+```
+
+is also much more useful than:
+
+```text
+fix
+```
+
+## Expect feedback
+
+A reviewer asking for changes does not mean your contribution failed.
+
+Code review is part of normal software development.
+
+You might receive comments about:
+
+```text
+naming
+
+formatting
+
+edge cases
+
+tests
+
+architecture
+
+documentation
+```
+
+Read the feedback carefully.
+
+If something is unclear, ask.
+
+Then update your branch and push again:
+
+```bash
+git add .
+git commit -m "fix: address review feedback"
+git push
+```
+
+The pull request updates automatically.
+
+You do not need to create a new PR.
+
+## Do not be afraid to ask questions
+
+If the repository's expectations are unclear, asking a focused question is better than guessing.
+
+For example:
+
+```text
+"I'd like to work on issue #42.
+
+I noticed two possible places to implement the validation.
+Do maintainers prefer keeping this logic in the API handler
+or inside the shared validation utility?"
+```
+
+That shows that you investigated the problem before asking.
+
+## Test your change before opening the PR
+
+At minimum, verify that:
+
+```text
+the application still runs
+
+the feature behaves correctly
+
+existing tests pass
+
+formatting and linting pass
+
+you did not accidentally commit unrelated files
+```
+
+Useful commands may include:
+
+```bash
+npm run lint
+npm run build
+npm test
+```
+
+depending on the project.
+
+Also check:
+
+```bash
+git status
+```
+
+before committing.
+
+Make sure you are only submitting files related to your change.
+
+## Check your commit history
+
+Before opening the PR:
+
+```bash
+git log --oneline
+```
+
+Your commits should tell a reasonable story.
+
+For a small contribution, something like:
+
+```text
+fix: correct event timezone fallback
+test: cover missing timezone case
+```
+
+is much easier to understand than:
+
+```text
+update
+update 2
+final
+final-final
+working now
+```
+
+## Be patient with maintainers
+
+Open-source maintainers may be:
+
+```text
+working full-time jobs
+
+reviewing many contributions
+
+maintaining several projects
+
+volunteering their time
+```
+
+A pull request may not receive an immediate response.
+
+Avoid repeatedly demanding updates.
+
+If enough time has passed, a polite follow-up is fine.
+
+## Your first PR is mainly about learning the workflow
+
+The technical change may be tiny.
+
+That is okay.
+
+Your first contribution teaches you how to:
+
+```text
+read an unfamiliar repository
+
+follow contribution guidelines
+
+work with branches
+
+communicate with maintainers
+
+respond to code review
+
+participate in a shared codebase
+```
+
+Those skills are valuable far beyond the individual pull request.
+
+## A simple first-PR workflow
+
+The whole process can look like:
+
+```text
+Find beginner-friendly issue
+        ↓
+Read contribution guide
+        ↓
+Fork repository
+        ↓
+Clone your fork
+        ↓
+Create branch
+        ↓
+Make one focused change
+        ↓
+Test
+        ↓
+Commit
+        ↓
+Push
+        ↓
+Open pull request
+        ↓
+Respond to review
+        ↓
+Merge
+```
+
+Your first open-source PR does not need to change the world.
+
+It only needs to get you through the door.
+
+After the first one, the process stops feeling mysterious.
+
+And once you understand the workflow, contributing to the next repository becomes much easier.
+
+<BlogPostFooter />

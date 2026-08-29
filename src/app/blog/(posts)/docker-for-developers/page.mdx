@@ -1,0 +1,478 @@
+import { BlogPostHeader } from '@/components/blog/BlogPostHeader';
+import { BlogPostFooter } from '@/components/blog/BlogPostFooter';
+
+export const metadata = {
+  title: 'Docker for Developers Who Just Want to Understand What It Does — DAF Blog',
+  description:
+    'Containers do not have to feel mysterious. Here is the mental model developers actually need before diving deeper.'
+};
+
+<BlogPostHeader
+  title="Docker for Developers Who Just Want to Understand What It Does"
+  date="2026-08-10"
+  readTime="8 min read"
+  tags={['DevOps', 'Engineering']}
+  author="DAF DevOps Circle"
+/>
+
+Docker often looks more complicated than it actually is.
+
+You see terms like containers, images, Dockerfiles, registries, volumes, ports, and orchestration — and suddenly it feels like you need to become a DevOps engineer just to run an application.
+
+You do not.
+
+The first thing you need is a simple mental model.
+
+## The problem Docker solves
+
+Imagine you build a Node.js application on your machine.
+
+It works perfectly.
+
+Then another developer tries to run it and gets:
+
+```text
+wrong Node version
+missing dependency
+different operating system behavior
+missing environment variable
+different database setup
+```
+
+The classic response is:
+
+> "But it works on my machine."
+
+Docker helps reduce that problem by packaging your application together with the environment it expects.
+
+Instead of saying:
+
+```text
+Install Node 22
+Install these packages
+Configure this system dependency
+Set up this runtime
+Then run the project
+```
+
+you can define the environment once and run it consistently.
+
+## Think of a container as an isolated runtime
+
+A container is not a full virtual machine.
+
+It is better to think of it as an isolated environment where your application runs with the dependencies and configuration it needs.
+
+For example:
+
+```text
+Your laptop
+│
+├── Browser
+├── VS Code
+├── Spotify
+│
+└── Docker
+    │
+    ├── Container: Next.js app
+    ├── Container: PostgreSQL
+    └── Container: Redis
+```
+
+Each container runs independently, but they can communicate when you configure them to.
+
+## Image vs container
+
+This distinction confuses many beginners.
+
+An **image** is the blueprint.
+
+A **container** is a running instance of that blueprint.
+
+Think of it like this:
+
+```text
+Image
+↓
+Recipe / template
+
+Container
+↓
+Running application created from that template
+```
+
+You can create multiple containers from the same image.
+
+For example:
+
+```text
+nextjs-app-image
+    ↓
+container-1
+container-2
+container-3
+```
+
+## The Dockerfile
+
+A `Dockerfile` describes how Docker should build your application image.
+
+A very simple Node example might look like:
+
+```dockerfile
+FROM node:22-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "run", "start"]
+```
+
+Each instruction tells Docker something about the environment.
+
+## What `FROM` means
+
+```dockerfile
+FROM node:22-alpine
+```
+
+This says:
+
+> Start with an existing image that already contains Node.js 22.
+
+You do not need to manually install Node inside the container.
+
+Docker starts from a prepared base image.
+
+## What `WORKDIR` means
+
+```dockerfile
+WORKDIR /app
+```
+
+This sets the working directory inside the container.
+
+Commands that follow will operate relative to:
+
+```text
+/app
+```
+
+It is similar to running:
+
+```bash
+cd /app
+```
+
+before executing other commands.
+
+## Copying dependencies first
+
+You will often see:
+
+```dockerfile
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+```
+
+instead of immediately copying the whole project.
+
+There is a reason for that.
+
+Docker builds images in layers.
+
+If your `package.json` has not changed, Docker can often reuse the dependency-installation layer instead of running `npm install` again.
+
+That can make rebuilds much faster.
+
+## Build the image
+
+Once you have a Dockerfile, you can build an image:
+
+```bash
+docker build -t my-app .
+```
+
+The command means:
+
+```text
+docker build
+↓
+Build an image
+
+-t my-app
+↓
+Name the image "my-app"
+
+.
+↓
+Use the current directory as the build context
+```
+
+Afterward, you have an image that Docker can use to create containers.
+
+## Run the container
+
+You can run it with:
+
+```bash
+docker run -p 3000:3000 my-app
+```
+
+The interesting part is:
+
+```text
+3000:3000
+```
+
+This maps a port on your machine to a port inside the container.
+
+Conceptually:
+
+```text
+Your browser
+localhost:3000
+      ↓
+Host port 3000
+      ↓
+Container port 3000
+      ↓
+Next.js application
+```
+
+Without that mapping, the application may be running inside the container but not accessible from your browser.
+
+## Containers are temporary by default
+
+This is important.
+
+A container should usually be treated as disposable.
+
+You should be comfortable with:
+
+```text
+Create container
+↓
+Run application
+↓
+Stop container
+↓
+Delete container
+↓
+Create another one
+```
+
+The important application state should not depend on the container existing forever.
+
+That is where volumes become useful.
+
+## What volumes are for
+
+Suppose you run PostgreSQL inside a container.
+
+If the database files only exist inside that container, deleting the container could delete your data too.
+
+A volume lets persistent data live separately from the container.
+
+Conceptually:
+
+```text
+PostgreSQL container
+        ↓
+Docker volume
+        ↓
+Persistent database files
+```
+
+Now you can replace the container without losing the database.
+
+## Why Docker Compose exists
+
+Real applications often need several services.
+
+For example:
+
+```text
+Next.js app
+PostgreSQL
+Redis
+Background worker
+```
+
+Running each container manually becomes annoying.
+
+Docker Compose lets you describe the whole setup in one file.
+
+For example:
+
+```yaml
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+
+  database:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: example
+```
+
+Then you can start the environment with:
+
+```bash
+docker compose up
+```
+
+Instead of remembering several separate commands.
+
+## Docker is useful for team consistency
+
+Suppose five developers join the same project.
+
+Without Docker, setup instructions might include:
+
+```text
+Install PostgreSQL
+Create a database
+Install Redis
+Install Node
+Use the correct Node version
+Configure environment variables
+Run migrations
+Start every service manually
+```
+
+With a well-configured Docker environment, the onboarding process can become much simpler.
+
+That is one of Docker's biggest practical benefits.
+
+## Docker does not replace your application architecture
+
+Docker packages and runs software.
+
+It does not automatically make the software:
+
+```text
+scalable
+secure
+fast
+well designed
+production ready
+```
+
+A badly designed application inside Docker is still a badly designed application.
+
+Containers solve environment and deployment problems, not every engineering problem.
+
+## Docker is not always necessary
+
+You do not need Docker for every project.
+
+A simple static or serverless website deployed to a platform like Vercel may gain very little from Docker during early development.
+
+Docker becomes more useful when:
+
+```text
+Your application needs multiple services
+
+Your team struggles with environment consistency
+
+You need reproducible deployments
+
+You run backend infrastructure
+
+You need local databases or queues
+
+You deploy containers in production
+```
+
+Use it because it solves a problem, not because it appears on DevOps roadmaps.
+
+## A useful beginner workflow
+
+For a small backend project, your workflow might look like:
+
+```text
+Write Dockerfile
+        ↓
+Build image
+        ↓
+Run container
+        ↓
+Test application
+        ↓
+Stop container
+        ↓
+Rebuild after important changes
+```
+
+Commands:
+
+```bash
+docker build -t daf-api .
+
+docker run -p 3000:3000 daf-api
+```
+
+To see running containers:
+
+```bash
+docker ps
+```
+
+To stop one:
+
+```bash
+docker stop <container-id>
+```
+
+## The mental model that matters
+
+You do not need to memorize every Docker command.
+
+Remember these ideas:
+
+```text
+Dockerfile
+↓
+Instructions for building an image
+
+Image
+↓
+Packaged application environment
+
+Container
+↓
+Running instance of an image
+
+Port mapping
+↓
+Connects your machine to the container
+
+Volume
+↓
+Stores persistent data outside the container
+
+Docker Compose
+↓
+Runs multiple related services together
+```
+
+Once those concepts make sense, the rest of Docker becomes much easier to learn.
+
+Docker is not magic.
+
+It is simply a way to make software environments more predictable, portable, and repeatable.
+
+<BlogPostFooter />

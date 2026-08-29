@@ -1,0 +1,440 @@
+import { BlogPostHeader } from '@/components/blog/BlogPostHeader';
+import { BlogPostFooter } from '@/components/blog/BlogPostFooter';
+
+export const metadata = {
+  title: 'Frontend Performance Basics Every Web Developer Should Understand — DAF Blog',
+  description:
+    'From image optimization to rendering and bundle size, these fundamentals can make an ordinary website feel dramatically better.'
+};
+
+<BlogPostHeader
+  title="Frontend Performance Basics Every Web Developer Should Understand"
+  date="2026-08-12"
+  readTime="9 min read"
+  tags={['Web', 'Engineering']}
+  author="DAF Web Team"
+/>
+
+A website can look polished and still feel slow.
+
+That usually happens because performance is treated as something to fix at the end instead of something considered while the application is being built.
+
+You do not need to become a browser-engine expert to improve frontend performance.
+
+A handful of fundamentals already make a huge difference.
+
+## Performance is mostly about perception
+
+Users do not experience performance as a benchmark score.
+
+They experience questions like:
+
+```text
+Did something appear quickly?
+
+Did the page respond when I clicked?
+
+Did the layout jump around?
+
+Did the image take forever to load?
+
+Did the interface freeze?
+```
+
+That means performance is not only about making everything technically faster.
+
+It is about making the application feel responsive and stable.
+
+## Start with the largest things on the page
+
+Large images, videos, fonts, and JavaScript bundles often create the biggest performance problems.
+
+Before optimizing tiny details, inspect what the browser is actually downloading.
+
+A page containing several multi-megabyte images will usually benefit more from image optimization than from micro-optimizing a React function.
+
+## Optimize images properly
+
+Images are one of the easiest places to waste bandwidth.
+
+Instead of loading a huge original image everywhere, use responsive sizing.
+
+In Next.js, the `Image` component helps with this:
+
+```tsx
+import Image from 'next/image';
+
+<Image
+  src="/project-preview.jpg"
+  alt="Project dashboard preview"
+  width={1200}
+  height={800}
+/>
+```
+
+For layouts where the image fills a container:
+
+```tsx
+<div className="relative h-[420px]">
+  <Image
+    src="/hero.jpg"
+    alt="Developer community"
+    fill
+    className="object-cover"
+  />
+</div>
+```
+
+Also think about whether an image needs to load immediately.
+
+Images below the fold usually do not.
+
+## Be careful with `priority`
+
+Next.js allows important images to load earlier:
+
+```tsx
+<Image
+  src="/hero.jpg"
+  alt="Hero"
+  fill
+  priority
+/>
+```
+
+This is useful for the main hero image.
+
+It is not something you should add to every image on the page.
+
+If everything is high priority, nothing is really prioritized.
+
+## Reduce layout shifts
+
+One of the most annoying performance problems is when content moves while the page is loading.
+
+For example:
+
+```text
+User tries to click button
+        ↓
+Image loads above it
+        ↓
+Layout moves
+        ↓
+User clicks the wrong thing
+```
+
+You can reduce this by reserving space for images, videos, ads, and other asynchronous content.
+
+This is another reason explicit image dimensions are useful.
+
+## Understand client and server components
+
+In modern Next.js, not every component needs to run in the browser.
+
+A component like:
+
+```tsx
+export function ArticleTitle() {
+  return <h1>Frontend Performance Basics</h1>;
+}
+```
+
+does not need:
+
+```tsx
+'use client';
+```
+
+Client components are necessary when you use things like:
+
+```text
+useState
+useEffect
+browser APIs
+event handlers
+interactive libraries
+```
+
+Keeping static components on the server can reduce the amount of JavaScript sent to users.
+
+## Do not make the entire page a client component
+
+A common mistake is adding:
+
+```tsx
+'use client';
+```
+
+at the top of a large page because one small section needs interactivity.
+
+Instead, isolate the interactive part.
+
+For example:
+
+```text
+Page
+├── Hero                Server
+├── ArticleGrid         Server
+├── SearchFilters       Client
+└── Footer              Server
+```
+
+This gives you interactivity without forcing the whole page into the client bundle.
+
+## Watch your dependencies
+
+Installing a package is easy:
+
+```bash
+npm install some-library
+```
+
+But every dependency has a cost.
+
+Ask yourself:
+
+```text
+How large is this package?
+
+Does it run in the browser?
+
+Do I need the whole library?
+
+Could a small utility replace it?
+```
+
+A dependency that saves ten lines of code may not always be worth adding if it significantly increases the client bundle.
+
+## Import only what you need
+
+Instead of importing an entire utility library:
+
+```tsx
+import _ from 'lodash';
+```
+
+prefer a smaller import when possible:
+
+```tsx
+import debounce from 'lodash/debounce';
+```
+
+Modern bundlers often tree-shake unused code, but smaller and more specific imports are still easier to reason about.
+
+## Avoid unnecessary rendering
+
+React re-renders are normal.
+
+They are not automatically a problem.
+
+The problem begins when expensive components repeatedly render without any useful reason.
+
+For example, if typing into a search field causes a massive visualization component to re-render every keystroke, you may want to isolate those parts.
+
+But do not add `useMemo` and `useCallback` everywhere by habit.
+
+Optimization itself has complexity.
+
+Measure first.
+
+## Debounce expensive search operations
+
+For small local arrays, immediate filtering is fine.
+
+For expensive operations or API requests, debounce can help.
+
+Conceptually:
+
+```text
+User types
+↓
+Wait briefly
+↓
+User stops typing
+↓
+Perform search
+```
+
+This avoids sending a request for every single keystroke.
+
+## Load heavy features only when needed
+
+Some components are expensive but are not visible immediately.
+
+For example:
+
+```text
+Interactive map
+Large chart
+Code editor
+3D viewer
+Rich text editor
+```
+
+These can often be loaded dynamically.
+
+In Next.js:
+
+```tsx
+import dynamic from 'next/dynamic';
+
+const Map = dynamic(() => import('./Map'), {
+  ssr: false
+});
+```
+
+This is especially useful when a dependency relies on browser-only APIs.
+
+## Avoid giant JavaScript bundles
+
+A beautiful landing page should not require several megabytes of JavaScript just to display text and cards.
+
+Large client bundles can cause:
+
+```text
+slow downloads
+slow parsing
+slow hydration
+poor performance on weaker devices
+```
+
+If most of your page is static, let it stay static.
+
+Use JavaScript where interaction actually requires it.
+
+## Fonts matter too
+
+Custom fonts can affect loading performance and layout stability.
+
+In Next.js, `next/font` can help optimize them:
+
+```tsx
+import { Inter } from 'next/font/google';
+
+const inter = Inter({
+  subsets: ['latin']
+});
+```
+
+Avoid loading many font families and unnecessary weights.
+
+If your design only uses:
+
+```text
+400
+500
+700
+```
+
+you probably do not need every weight from `100` through `900`.
+
+## Use loading states carefully
+
+Sometimes a slow operation cannot be eliminated.
+
+In those cases, good feedback matters.
+
+Instead of leaving the interface frozen, show:
+
+```text
+Skeleton UI
+Loading indicator
+Pending button state
+Progress feedback
+```
+
+A user who understands that something is happening is less likely to perceive the application as broken.
+
+## Measure instead of guessing
+
+Browser DevTools already gives you useful information.
+
+Check:
+
+```text
+Network tab
+Performance tab
+Lighthouse
+JavaScript bundle sizes
+Image sizes
+Request timing
+```
+
+You can also use tools such as Lighthouse to inspect metrics including:
+
+```text
+Largest Contentful Paint
+Cumulative Layout Shift
+Interaction to Next Paint
+```
+
+Do not obsess over perfect scores.
+
+Use them to identify obvious bottlenecks.
+
+## Test on slower conditions
+
+A website that feels instant on your development machine may feel completely different on:
+
+```text
+mobile data
+older Android phones
+slower CPUs
+high-latency connections
+```
+
+Browser DevTools lets you simulate slower networks and devices.
+
+This can expose problems you would otherwise miss.
+
+## Performance is part of UX
+
+Frontend performance is not an isolated technical concern.
+
+It affects:
+
+```text
+conversion
+accessibility
+SEO
+engagement
+trust
+usability
+```
+
+A fast interface feels more professional.
+
+A stable interface feels more trustworthy.
+
+And a responsive interface makes every design decision feel better.
+
+## Focus on the fundamentals first
+
+You do not need advanced optimization techniques to build a fast website.
+
+Start with:
+
+```text
+Optimize images
+↓
+Reduce unnecessary client JavaScript
+↓
+Avoid huge dependencies
+↓
+Prevent layout shifts
+↓
+Lazy-load heavy features
+↓
+Measure real bottlenecks
+```
+
+Those fundamentals solve a surprising amount of performance trouble.
+
+Build the experience first.
+
+Then measure.
+
+Then optimize what actually matters.
+
+<BlogPostFooter />

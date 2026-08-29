@@ -1,0 +1,349 @@
+import { BlogPostHeader } from '@/components/blog/BlogPostHeader';
+import { BlogPostFooter } from '@/components/blog/BlogPostFooter';
+
+export const metadata = {
+  title: 'How to Use AI Without Stopping Yourself From Learning — DAF Blog',
+  description:
+    'AI can accelerate development, but only if you stay in control of the reasoning, debugging, and architectural decisions.'
+};
+
+<BlogPostHeader
+  title="How to Use AI Without Stopping Yourself From Learning"
+  date="2026-08-17"
+  readTime="7 min read"
+  tags={['AI', 'Career']}
+  author="DAF AI Circle"
+/>
+
+AI can make developers dramatically faster.
+
+It can explain unfamiliar code, generate boilerplate, suggest fixes, draft tests, summarize documentation, and help you explore technologies you have never used before.
+
+But there is a difference between using AI as a tool and letting AI replace the part of development that actually makes you better.
+
+The goal is not to avoid AI.
+
+The goal is to use it without giving away your understanding.
+
+## Use AI to accelerate, not to outsource thinking
+
+Before asking AI to solve a problem, spend a few minutes defining it yourself.
+
+Ask:
+
+```text
+What is actually broken?
+
+What behavior do I expect?
+
+What part of the code controls that behavior?
+
+What have I already tried?
+```
+
+Even if you cannot solve the issue, this forces you to build a mental model first.
+
+Then AI becomes a collaborator instead of a replacement for reasoning.
+
+## Ask for explanations, not only solutions
+
+A weak prompt is:
+
+```text
+Fix this code.
+```
+
+A better prompt is:
+
+```text
+Explain why this code is failing,
+identify the root cause,
+and show me the smallest change that fixes it.
+```
+
+An even better one is:
+
+```text
+Give me three possible causes first.
+Then help me verify which one is actually happening.
+```
+
+This keeps you involved in the debugging process.
+
+## Read generated code before you paste it
+
+Never assume generated code is correct just because it looks professional.
+
+Before using it, check:
+
+- what each function does,
+- what dependencies it introduces,
+- what assumptions it makes,
+- whether it matches your project structure,
+- whether it exposes security risks,
+- and whether you could explain it to another developer.
+
+A useful rule is:
+
+> If you cannot explain the code, you do not really own the code yet.
+
+## Use AI for boilerplate
+
+There are many tasks where AI can save time without hurting your learning.
+
+Examples include:
+
+```text
+Generating repetitive TypeScript types
+
+Writing basic form validation
+
+Creating starter test cases
+
+Formatting API response types
+
+Drafting documentation
+
+Converting repeated JSX into reusable components
+```
+
+These tasks can be tedious without necessarily teaching you much every time.
+
+Let AI reduce repetition so you can focus on harder decisions.
+
+## Keep architecture decisions yours
+
+AI can suggest architecture.
+
+It should not silently choose architecture for you.
+
+If it recommends:
+
+```text
+Redux
+Supabase
+Prisma
+Server Actions
+Zustand
+Redis
+Docker
+```
+
+you should still ask:
+
+```text
+Why do I need this?
+
+What problem does it solve?
+
+What happens if I do not use it?
+
+What simpler option exists?
+
+What tradeoffs am I accepting?
+```
+
+Technology decisions should come from requirements, not from whatever library appeared in the generated answer.
+
+## Debug before asking for a rewrite
+
+When something breaks, avoid immediately asking AI to rewrite the whole component.
+
+Start with the error.
+
+For example:
+
+```text
+TypeError: Cannot read properties of undefined
+```
+
+Then investigate:
+
+```text
+Which value is undefined?
+
+Where is it coming from?
+
+When is this component rendered?
+
+Is the data asynchronous?
+
+Is the type definition inaccurate?
+```
+
+Once you understand the failure, use AI to help test your theory.
+
+This teaches you far more than replacing the file with a new version.
+
+## Compare approaches
+
+AI is especially useful when you ask it to compare options.
+
+Instead of:
+
+```text
+How should I implement authentication?
+```
+
+try:
+
+```text
+Compare these approaches for my project:
+
+1. Supabase Auth
+2. NextAuth
+3. Custom JWT authentication
+
+The application is small,
+uses Next.js,
+and needs an admin dashboard.
+
+Explain the tradeoffs before recommending one.
+```
+
+This forces the answer to expose reasoning.
+
+You are then learning how to make decisions rather than simply receiving one.
+
+## Predict before running the code
+
+When AI gives you a solution, pause before testing it.
+
+Ask yourself:
+
+> What do I expect this code to do?
+
+Then run it.
+
+If your prediction was wrong, figure out why.
+
+This tiny habit is extremely powerful because it keeps your brain engaged instead of turning development into copy-and-paste.
+
+## Use AI to review your own work
+
+AI is not only useful for generating code.
+
+It can also critique code you already wrote.
+
+For example:
+
+```text
+Review this component.
+
+Do not rewrite it yet.
+
+Tell me:
+- possible bugs,
+- accessibility problems,
+- unnecessary complexity,
+- performance concerns,
+- and what you would refactor.
+```
+
+Now you remain the author while AI acts more like a reviewer.
+
+That is often a healthier learning workflow.
+
+## Learn from errors
+
+When AI-generated code fails, do not immediately ask for another version.
+
+Study the failure.
+
+Ask:
+
+```text
+Why did this fail?
+
+What assumption in the previous answer was wrong?
+
+What does this error tell us about the framework?
+```
+
+The debugging process often teaches more than the original feature.
+
+## Avoid the copy-paste loop
+
+A dangerous pattern looks like this:
+
+```text
+AI generates code
+        ↓
+Code fails
+        ↓
+Paste error into AI
+        ↓
+AI generates more code
+        ↓
+Another error
+        ↓
+Repeat
+```
+
+After several rounds, you may have a working application but very little understanding of why it works.
+
+A better loop is:
+
+```text
+Understand the problem
+        ↓
+Form a hypothesis
+        ↓
+Ask AI for guidance
+        ↓
+Inspect the solution
+        ↓
+Predict the result
+        ↓
+Test
+        ↓
+Understand the outcome
+```
+
+The second loop may feel slightly slower in the moment.
+
+It makes you much faster over time.
+
+## Know when to work without AI
+
+Sometimes the best way to learn is to deliberately disable the shortcut.
+
+Try solving small tasks yourself:
+
+```text
+Create a responsive navbar
+
+Write a filtering function
+
+Build a form validator
+
+Implement pagination
+
+Create a reusable modal
+```
+
+Then compare your implementation with an AI-assisted version afterward.
+
+This helps you identify gaps in your own understanding.
+
+## Your goal is leverage
+
+The strongest developers are not the ones who avoid AI.
+
+They are also not the ones who depend on it for every decision.
+
+They use it as leverage.
+
+They know enough to recognize bad output.
+
+They understand enough to modify generated code safely.
+
+They can debug when the answer is wrong.
+
+And they still know how to make architectural decisions when no prompt can make the decision for them.
+
+Use AI to move faster.
+
+Just make sure your understanding moves with you.
+
+<BlogPostFooter />
