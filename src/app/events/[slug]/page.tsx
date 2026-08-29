@@ -54,7 +54,7 @@ export default async function EventDetailPage({
 
         <EventSpeakers speakers={event.speakers} />
 
-        <EventDetailCTA />
+        <EventDetailCTA eventSlug={event.slug} />
       </div>
     </main>
   );

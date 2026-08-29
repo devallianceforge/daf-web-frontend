@@ -77,9 +77,9 @@ export function EventDetailHero({ event }: { event: EventItem }) {
             </p>
 
             <div className="mt-9 flex flex-wrap gap-3">
-              <MagneticButton href="/contact">
-                Register interest
-              </MagneticButton>
+              <MagneticButton href={`/events/${event.slug}/register`}>
+  Register interest
+</MagneticButton>
 
               <MagneticButton href="/events" variant="ghost">
                 Explore events

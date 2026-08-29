@@ -2,7 +2,11 @@ import Link from 'next/link';
 import { Reveal } from '@/components/Reveal';
 import { ArrowRightIcon } from '@/components/icons';
 
-export function EventDetailCTA() {
+export function EventDetailCTA({
+  eventSlug
+}: {
+  eventSlug: string;
+})  {
   return (
     <section className="mt-16">
       <Reveal>
@@ -50,7 +54,7 @@ export function EventDetailCTA() {
 
             <div className="flex shrink-0 flex-col gap-3 sm:flex-row lg:flex-col">
               <Link
-                href="/contact"
+                href={`/events/${eventSlug}/register`}
                 className="group inline-flex items-center justify-center gap-2 rounded-full bg-daf-gradient px-6 py-3 text-sm font-semibold text-[#050508] transition-all duration-300 hover:shadow-[0_8px_30px_-6px_rgba(124,58,237,0.55)]"
               >
                 Register interest
