@@ -68,6 +68,6 @@ as section eyebrows. Prefer this over generic icon-only decoration when adding n
 | Hero | `src/components/Hero.tsx` | Canvas particle field + typewriter boot sequence |
 | Reveal | `src/components/Reveal.tsx` | Standard scroll-in animation wrapper |
 | MagneticButton | `src/components/MagneticButton.tsx` | Primary/ghost CTA with pointer-follow effect |
-| CustomCursor | `src/components/CustomCursor.tsx` | Desktop-only dot + trailing ring |
+| Cursors | `src/app/globals.css` | Themed SVG cursors replace the native default: arrow (default), pointing hand (links/buttons), open/closed hand (`[data-cursor-grab]`) — brand-gradient fill with white outline |
 | EventCard / WorkshopCard | `src/components/*.tsx` | Shared visual card pattern — keep these two in sync when styling changes |
 | CommunitySection | `src/components/CommunitySection.tsx` | Renders all 8 channels from `src/data/channels.ts` |

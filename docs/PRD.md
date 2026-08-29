@@ -91,7 +91,7 @@ The current website functions as a basic directory of events/workshops but does 
 - **Cards (events, workshops, builders):** Subtle 3D tilt-on-hover (perspective transform tied to pointer position), animated gradient border glow on hover, magnetic buttons (CTA follows cursor slightly within a radius).
 - **Stats counters:** Animated count-up on scroll-into-view for the "Total Events / Workshops / Builders" strip.
 - **Page transitions:** Smooth cross-fade/slide transitions between routes (view-transitions API or Framer Motion `AnimatePresence`) so navigation feels like a single continuous app, not full page reloads.
-- **Micro-interactions:** Custom cursor (dot + trailing ring) on desktop; button ripple/gradient-sweep on click; form field focus states with animated glowing outline; loading states styled as terminal/progress-bar animations, not generic spinners.
+- **Micro-interactions:** Custom SVG cursors on desktop (arrow default, pointing hand on links/buttons, open/closed hand on `[data-cursor-grab]` — brand-gradient fill, white outline); button ripple/gradient-sweep on click; form field focus states with animated glowing outline; loading states styled as terminal/progress-bar animations, not generic spinners.
 - **Performance guardrail:** All animation must respect `prefers-reduced-motion`; heavy WebGL/3D elements must lazy-load, degrade gracefully on low-end devices, and never block LCP.
 
 ---

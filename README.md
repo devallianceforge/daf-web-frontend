@@ -22,7 +22,7 @@ Then open http://localhost:3000.
   pages, `/about`, `/contact`, and an `/api/contact` route handler
 - `src/components/` — Hero (animated particle field + boot-sequence typewriter), Header/Footer,
   Stats counters, Pillars, Event/Workshop/Project/Builder/Blog cards, Community channel grid,
-  custom cursor, magnetic buttons, scroll-reveal wrapper
+  themed SVG cursors (arrow / pointing / grab / grabbing), magnetic buttons, scroll-reveal wrapper
 - `src/data/` — site copy, nav links, social/community channels, sample events/workshops/projects/
   builders, and the blog post registry. This is the layer to swap for a real CMS (Sanity/Payload
   — see the PRD) once you're ready to go live with real content.

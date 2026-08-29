@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { CustomCursor } from '@/components/CustomCursor';
 import { SITE } from '@/data/site';
 import './globals.css';
 
@@ -45,7 +44,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body className="font-body">
-        <CustomCursor />
         <Header />
         <main>{children}</main>
         <Footer />
