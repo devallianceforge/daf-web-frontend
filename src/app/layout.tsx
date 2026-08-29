@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { CustomCursor } from '@/components/CustomCursor';
 import { SITE } from '@/data/site';
+import { CHANNELS } from '@/data/channels';
 import './globals.css';
 
 const display = Space_Grotesk({
@@ -42,10 +42,21 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const orgJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+    logo: `${SITE.url}/logo.png`,
+    email: SITE.email,
+    description: SITE.description,
+    sameAs: CHANNELS.map((c) => c.url)
+  };
+
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body className="font-body">
-        <CustomCursor />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
         <Header />
         <main>{children}</main>
         <Footer />

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { EVENTS, getEventBySlug } from '@/data/events';
+import { SITE } from '@/data/site';
 import { Reveal } from '@/components/Reveal';
 import { EventDetailHero } from '@/components/events/event-details/EventDetailHero';
 import { EventAgenda } from '@/components/events/event-details/EventAgenda';
@@ -43,9 +44,28 @@ export default async function EventDetailPage({
     notFound();
   }
 
+  const eventJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: event.title,
+    description: event.description,
+    startDate: event.date,
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode:
+      event.format === 'Online'
+        ? 'https://schema.org/OnlineEventAttendanceMode'
+        : 'https://schema.org/OfflineEventAttendanceMode',
+    organizer: {
+      '@type': 'Organization',
+      name: SITE.name,
+      url: SITE.url
+    }
+  };
+
   return (
     <main className="pb-[120px] pt-[140px]">
       <div className="mx-auto max-w-[1100px] px-6">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }} />
         <Reveal>
           <EventDetailHero event={event} />
         </Reveal>

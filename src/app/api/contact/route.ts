@@ -28,7 +28,7 @@ export async function POST(request: Request) {
   if (!EMAIL_RE.test(email)) {
     return NextResponse.json({ error: 'Please provide a valid email address.' }, { status: 400 });
   }
-  // Basic honeypot-style length guard against obvious spam/script abuse.
+  // Basic message-length guard against obvious spam/script abuse.
   if (message.length > 5000) {
     return NextResponse.json({ error: 'Message is too long.' }, { status: 400 });
   }

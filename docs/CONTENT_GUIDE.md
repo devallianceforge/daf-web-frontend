@@ -8,12 +8,15 @@ any component code.
 
 | File | Powers | Type |
 |---|---|---|
-| `src/data/site.ts` | Nav links, hero/brand copy, stats strip, the 3 pillars | `SITE`, `NAV_LINKS`, `STATS`, `PILLARS` |
-| `src/data/channels.ts` | All 8 social/community links (header, footer, `/community`) | `CHANNELS: Channel[]` |
+| `src/data/site.ts` | Site identity, nav links, hero copy (`HERO`), join-page copy (`JOIN`), stats strip, the 3 pillars | `SITE`, `NAV_LINKS`, `HERO`, `JOIN`, `STATS`, `PILLARS` |
+| `src/data/channels.ts` | All 8 social/community links (header, footer, `/community`, `/join`) | `CHANNELS: Channel[]` |
 | `src/data/events.ts` | Event cards on home + `/events` + `/events/[slug]` | `EVENTS: EventItem[]` — **sample data** |
 | `src/data/workshops.ts` | Workshop cards on home + `/workshops` + `/workshops/[slug]` | `WORKSHOPS: WorkshopItem[]` — **sample data** |
 | `src/data/projects.ts` | Project cards on home + `/projects` + `/projects/[slug]` | `PROJECTS: ProjectItem[]` — **sample data** |
 | `src/data/builders.ts` | Builder directory on home + `/community` + `/community/[username]` | `BUILDERS: BuilderItem[]` — **sample data** |
+| `src/data/team.ts` | Organizer/mentor grid on `/team` | `TEAM: TeamItem[]` — **sample data** |
+| `src/data/faq.ts` | FAQ accordion on `/faq` | `FAQ: FaqItem[]` |
+| `src/data/partners.ts` | Partnership tiers + logo wall on `/partners` | `PARTNER_TIERS`, `PARTNERS: Partner[]` |
 
 ## Editing content today (no CMS yet)
 
@@ -42,6 +45,27 @@ Add one object to the `CHANNELS` array in `src/data/channels.ts` with a `name`, 
 (must be one of the icon keys already handled in `src/components/icons.tsx`), and `blurb`. It will
 automatically appear in the header social row, the footer, and the `/community` page — no other
 code changes needed.
+
+## Event & workshop registration
+
+Registration is a native flow, not a CMS block. The pages are
+`/events/[slug]/register` and `/workshops/[slug]/register`; the route handlers are
+`src/app/api/events/register/route.ts` and `src/app/api/workshops/register/route.ts` (the
+workshop one collects extra fields — phone, experience, optional GitHub/portfolio, learning
+goal).
+
+The API contract mirrors `/api/contact`: on success the submission is emailed to the DAF team via
+Resend when `RESEND_API_KEY` is set, and otherwise logged server-side. There is no database, no
+confirmation email to the registrant, and no capacity/dedup layer (see PRD F2). If that changes —
+e.g. you add Supabase/Neon storage — wire the forms to the new path and update the privacy policy
+in `src/app/legal/privacy/page.tsx`.
+
+## SEO routes (generated, not CMS-managed)
+
+`src/app/sitemap.ts`, `src/app/robots.ts`, and the JSON-LD blocks in `src/app/layout.tsx`
+(Organization) and `src/app/events/[slug]/page.tsx` (Event) are generated from the data
+collections, so a new event/workshop/project/builder/post appears in the sitemap automatically.
+Removing a route from the sitemap requires a code change in `src/app/sitemap.ts`.
 
 ## GitHub API: what's actually live vs. sample
 

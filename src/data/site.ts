@@ -4,7 +4,48 @@ export const SITE = {
   tagline: 'Your alliance for innovation, your forge for impact.',
   description:
     'Dev Alliance Forge (DAF) is a volunteer-driven developer community. Forge new skills, mentor each other, and build the future of tech — together.',
-  email: 'devallianceforge@gmail.com'
+  email: 'devallianceforge@gmail.com',
+  url: 'https://devallianceforge.site'
+};
+
+export const HERO = {
+  bootMessages: [
+    '$ daf --init',
+    '$ compiling community...',
+    '$ loading community builders... done',
+    '$ ready.'
+  ],
+  headline: ['We forge', 'developers,', 'not just code.'],
+  subhead:
+    'Dev Alliance Forge is a volunteer-driven community where students, developers, and IT professionals learn, build, and elevate — together. Your alliance for innovation, your forge for impact.',
+  primaryCta: { label: 'Join the Community', href: '/join' },
+  secondaryCta: { label: 'Explore Events', href: '/events' },
+  scrollLabel: 'Scroll'
+};
+
+export const JOIN = {
+  eyebrow: '$ daf --join',
+  headline: 'Join the forge.',
+  subhead:
+    'Pick a channel that fits how you work, say hello, and start building with the community.',
+  primaryCta: { label: 'Start on Discord', href: 'https://discord.gg/uje6kkBkkg' },
+  secondaryCta: { label: 'Explore the community', href: '/community' },
+  whyEyebrow: 'Why DAF',
+  whyTitle: 'Show up, build, grow.',
+  steps: [
+    {
+      title: 'Pick your channel',
+      text: 'Discord is the main hub; WhatsApp and Telegram are right there if you prefer quick chats.'
+    },
+    {
+      title: 'Say hello',
+      text: 'Introduce yourself in #introductions and tell the community what you are building or learning.'
+    },
+    {
+      title: 'Build with us',
+      text: 'Join a build night, an open-source sprint, or a workshop — mentors are on hand every step.'
+    }
+  ]
 };
 
 export const NAV_LINKS = [
@@ -14,6 +55,7 @@ export const NAV_LINKS = [
   { label: 'Projects', href: '/projects' },
   { label: 'Blog', href: '/blog' },
   { label: 'Community', href: '/community' },
+  { label: 'Join', href: '/join' },
   { label: 'Contact', href: '/contact' }
 ];
 
