@@ -6,4 +6,5 @@ out
 .env.mcp
 .DS_Store
 *.log
+*.tsbuildinfo
 .agents
