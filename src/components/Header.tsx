@@ -124,7 +124,7 @@ export function Header() {
                     className={cn(
                       'relative z-10 transition-all duration-300',
                       active &&
-                        'bg-gradient-to-r from-violet-400 to-blue-400 bg-clip-text text-transparent'
+                        'bg-linear-to-r from-violet-400 to-blue-400 bg-clip-text text-transparent'
                     )}
                   >
                     {link.label}
@@ -143,10 +143,10 @@ export function Header() {
                     >
                       <span className="relative flex h-3 w-full items-center justify-center">
                         {/* Signal trace */}
-                        <span className="absolute h-px w-full bg-gradient-to-r from-transparent via-violet-500 to-transparent opacity-90" />
+                        <span className="absolute h-px w-full bg-linear-to-r from-transparent via-violet-500 to-transparent opacity-90" />
 
                         {/* Secondary blue trace */}
-                        <span className="absolute h-px w-[60%] bg-gradient-to-r from-violet-400 via-blue-400 to-transparent blur-[1px]" />
+                        <span className="absolute h-px w-[60%] bg-linear-to-r from-violet-400 via-blue-400 to-transparent blur-[1px]" />
 
                         {/* Reactive signal node */}
                         <motion.span
@@ -162,11 +162,11 @@ export function Header() {
                           }}
                           className="relative"
                         >
-                          <span className="block h-2 w-2 rounded-full bg-gradient-to-br from-violet-400 to-blue-400 shadow-[0_0_14px_rgba(99,102,241,0.95),0_0_26px_rgba(59,130,246,0.45)]" />
+                          <span className="block h-2 w-2 rounded-full bg-linear-to-br from-violet-400 to-blue-400 shadow-[0_0_14px_rgba(99,102,241,0.95),0_0_26px_rgba(59,130,246,0.45)]" />
 
-                          <span className="absolute inset-[-5px] rounded-full border border-violet-400/25" />
+                          <span className="absolute -inset-1.25 rounded-full border border-violet-400/25" />
 
-                          <span className="absolute inset-[-9px] animate-ping rounded-full border border-blue-400/10" />
+                          <span className="absolute -inset-2.25 animate-ping rounded-full border border-blue-400/10" />
                         </motion.span>
                       </span>
                     </motion.span>
@@ -181,10 +181,7 @@ export function Header() {
 
           <div className="flex items-center gap-4">
 
-            
-
             <MagneticButton href="/join" size="sm" className="hidden sm:inline-flex">
- main
               Join DAF
             </MagneticButton>
 
