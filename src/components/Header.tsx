@@ -173,9 +173,7 @@ export function Header() {
                   )}
 
                   {/* Terminal route preview */}
-                  <span className="pointer-events-none absolute left-1/2 top-full mt-3 -translate-x-1/2 translate-y-[-3px] whitespace-nowrap rounded-md border border-violet-500/15 bg-bg/90 px-2 py-1 font-mono text-[9px] text-blue-300 opacity-0 backdrop-blur-md transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
-                    &gt; {link.href}
-                  </span>
+                  {/* <span className="pointer-events-none absolute left-1/2 top-full mt-3 -translate-x-1/2 translate-y-[-3px] whitespace-nowrap rounded-md border border-violet-500/15 bg-bg/90 px-2 py-1 font-mono text-[9px] text-blue-300 opacity-0 backdrop-blur-md transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100"> &gt; {link.href} </span> */}
                 </Link>
               );
             })}
