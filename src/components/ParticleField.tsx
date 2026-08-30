@@ -24,7 +24,7 @@ export function ParticleField() {
 
     const dpr = window.devicePixelRatio || 1;
     const isSmall = window.innerWidth < 700;
-    const count = isSmall ? 34 : 70;
+    const count = isSmall ? 80 : 160;
 
     let W = 0,
       H = 0;
@@ -42,9 +42,9 @@ export function ParticleField() {
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * W,
         y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.35 * dpr,
-        vy: (Math.random() - 0.5) * 0.35 * dpr,
-        r: (Math.random() * 1.6 + 0.8) * dpr,
+        vx: (Math.random() - 0.5) * 0.45 * dpr,
+        vy: (Math.random() - 0.5) * 0.45 * dpr,
+        r: (Math.random() * 2.2 + 1.2) * dpr,
         c: COLORS[Math.floor(Math.random() * COLORS.length)] ?? '#7c3aed'
       }));
     }
@@ -83,7 +83,7 @@ export function ParticleField() {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = p.c;
-        ctx.globalAlpha = 0.8;
+        ctx.globalAlpha = 0.9;
         ctx.fill();
       });
 
@@ -95,12 +95,12 @@ export function ParticleField() {
           const dx = a.x - b.x;
           const dy = a.y - b.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          const max = 140 * dpr;
+          const max = 150 * dpr;
           if (dist < max) {
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = `rgba(124,58,237,${(1 - dist / max) * 0.25})`;
+            ctx.strokeStyle = `rgba(124,58,237,${(1 - dist / max) * 0.3})`;
             ctx.lineWidth = 1;
             ctx.stroke();
           }

@@ -45,20 +45,20 @@ export function Hero() {
   const bootText = useBootLine();
 
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden pt-[120px]">
+    <section className="relative flex min-h-svh items-center overflow-hidden pt-[96px] lg:pt-[120px]">
       <ParticleField />
       <div
         className="pointer-events-none absolute left-1/2 top-[-300px] z-0 h-[900px] w-[900px] -translate-x-1/2 rounded-full blur-[10px]"
         style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.18), transparent 60%)' }}
       />
-      <div className="container relative z-[2] mx-auto flex w-full max-w-[1240px] flex-col gap-14 px-6 py-10 lg:h-[calc(100vh-120px)] lg:min-h-[540px] lg:flex-row lg:items-stretch lg:gap-0 lg:py-0">
+      <div className="container relative z-[2] mx-auto flex w-full max-w-[1240px] flex-col gap-4 px-6 py-5 lg:h-[calc(100vh-120px)] lg:min-h-[540px] lg:flex-row lg:items-stretch lg:gap-0 lg:py-0">
         <div className="flex max-w-[820px] flex-col justify-center lg:w-1/2 lg:max-w-none lg:pr-16">
-          <div className="mb-[22px] flex min-h-[20px] items-center gap-0.5 font-mono text-[13px] text-mint">
+          <div className="mb-3 flex min-h-[20px] items-center gap-0.5 font-mono text-[13px] text-mint lg:mb-[22px]">
             {bootText}
             <span className="ml-[3px] inline-block h-4 w-2 animate-blink bg-mint" />
           </div>
 
-          <h1 className="mb-6 font-display text-[clamp(40px,7vw,84px)] font-semibold leading-[1.02] tracking-tight">
+          <h1 className="mb-3 font-display text-[clamp(40px,7vw,84px)] font-semibold leading-[1.02] tracking-tight lg:mb-6">
             {HERO.headline.map((line, i) =>
               i === 1 ? (
                 <span key={line} className="block bg-daf-gradient bg-clip-text text-transparent">
@@ -72,9 +72,9 @@ export function Hero() {
             )}
           </h1>
 
-          <p className="mb-10 max-w-[560px] text-lg text-text-muted">{HERO.subhead}</p>
+          <p className="mb-4 max-w-[560px] text-base text-text-muted lg:mb-10 lg:text-lg">{HERO.subhead}</p>
 
-          <div className="mb-16 flex flex-wrap gap-4">
+          <div className="mb-6 flex flex-wrap gap-2 lg:mb-16 lg:gap-4">
             <MagneticButton href={HERO.primaryCta.href}>{HERO.primaryCta.label}</MagneticButton>
             <MagneticButton href={HERO.secondaryCta.href} variant="ghost">
               {HERO.secondaryCta.label}
@@ -82,14 +82,9 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="relative h-[240px] w-full lg:h-full lg:w-1/2">
+        <div className="relative h-[130px] w-full lg:h-full lg:w-1/2">
           <PixelScatterLogo sizingMode="fill" />
         </div>
-      </div>
-
-      <div className="absolute bottom-9 left-1/2 z-[2] flex -translate-x-1/2 flex-col items-center gap-2.5 font-mono text-[11px] uppercase tracking-wider text-text-dim">
-        <span>{HERO.scrollLabel}</span>
-        <span className="h-9 w-px origin-top animate-scrollcue bg-gradient-to-b from-mint to-transparent" />
       </div>
     </section>
   );

@@ -19,8 +19,7 @@ export const HERO = {
   subhead:
     'Dev Alliance Forge is a volunteer-driven community where students, developers, and IT professionals learn, build, and elevate — together. Your alliance for innovation, your forge for impact.',
   primaryCta: { label: 'Join the Community', href: '/join' },
-  secondaryCta: { label: 'Explore Events', href: '/events' },
-  scrollLabel: 'Scroll'
+  secondaryCta: { label: 'Explore Events', href: '/events' }
 };
 
 export const JOIN = {
