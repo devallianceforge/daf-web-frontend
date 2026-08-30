@@ -4,6 +4,7 @@ out
 .env
 .env*.local
 .env.mcp
+.playwright-mcp
 .DS_Store
 *.log
 *.tsbuildinfo
