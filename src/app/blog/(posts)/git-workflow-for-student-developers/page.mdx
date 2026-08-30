@@ -159,15 +159,19 @@ If conflicts appear, resolve them locally before opening the pull request.
 
 A merge conflict simply means Git found two changes to the same area of a file and cannot safely decide which version should win.
 
-You might see:
+Conceptually, Git shows something like:
 
 ```text
-<<<<<<< HEAD
+[CURRENT BRANCH]
 your version
-=======
+
+[SEPARATOR]
+
+[INCOMING BRANCH]
 another developer's version
->>>>>>> main
 ```
+
+In a real conflict, Git uses special marker lines around those sections.
 
 Your job is to decide what the final code should look like, remove the conflict markers, test the result, and commit the resolution.
 
