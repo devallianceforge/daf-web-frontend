@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react';
 import { ParticleField } from './ParticleField';
 import { MagneticButton } from './MagneticButton';
 import { PixelScatterLogo } from './PixelScatterLogo';
-
-const BOOT_MESSAGES = ['$ daf --init', '$ compiling community...', '$ loading community builders... done', '$ ready.'];
+import { HERO } from '@/data/site';
 
 function useBootLine() {
   const [text, setText] = useState('');
@@ -17,7 +16,7 @@ function useBootLine() {
     let restartTimeout: ReturnType<typeof setTimeout>;
 
     function typeMessage() {
-      const message = BOOT_MESSAGES[messageIndex % BOOT_MESSAGES.length]!;
+      const message = HERO.bootMessages[messageIndex % HERO.bootMessages.length]!;
       charIndex = 0;
       typeInterval = setInterval(() => {
         charIndex++;
@@ -60,21 +59,25 @@ export function Hero() {
           </div>
 
           <h1 className="mb-6 font-display text-[clamp(40px,7vw,84px)] font-semibold leading-[1.02] tracking-tight">
-            <span className="block">We forge</span>
-            <span className="block bg-daf-gradient bg-clip-text text-transparent">developers,</span>
-            <span className="block">not just code.</span>
+            {HERO.headline.map((line, i) =>
+              i === 1 ? (
+                <span key={line} className="block bg-daf-gradient bg-clip-text text-transparent">
+                  {line}
+                </span>
+              ) : (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              )
+            )}
           </h1>
 
-          <p className="mb-10 max-w-[560px] text-lg text-text-muted">
-            Dev Alliance Forge is a volunteer-driven community where students, developers, and IT
-            professionals learn, build, and elevate — together. Your alliance for innovation, your forge
-            for impact.
-          </p>
+          <p className="mb-10 max-w-[560px] text-lg text-text-muted">{HERO.subhead}</p>
 
           <div className="mb-16 flex flex-wrap gap-4">
-            <MagneticButton href="/contact">Join the Community</MagneticButton>
-            <MagneticButton href="/events" variant="ghost">
-              Explore Events
+            <MagneticButton href={HERO.primaryCta.href}>{HERO.primaryCta.label}</MagneticButton>
+            <MagneticButton href={HERO.secondaryCta.href} variant="ghost">
+              {HERO.secondaryCta.label}
             </MagneticButton>
           </div>
         </div>
@@ -85,7 +88,7 @@ export function Hero() {
       </div>
 
       <div className="absolute bottom-9 left-1/2 z-[2] flex -translate-x-1/2 flex-col items-center gap-2.5 font-mono text-[11px] uppercase tracking-wider text-text-dim">
-        <span>Scroll</span>
+        <span>{HERO.scrollLabel}</span>
         <span className="h-9 w-px origin-top animate-scrollcue bg-gradient-to-b from-mint to-transparent" />
       </div>
     </section>

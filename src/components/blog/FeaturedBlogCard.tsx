@@ -112,9 +112,7 @@ export function FeaturedBlogCard({ post }: { post: BlogPostMeta }) {
                 </span>
               </p>
 
-              <p className="pt-3 text-text-dim">
-                // forge better developers
-              </p>
+              <p className="pt-3 text-text-dim">{'// forge better developers'}</p>
 
               <p className="text-mint">
                 community.build();

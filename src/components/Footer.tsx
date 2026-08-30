@@ -34,11 +34,15 @@ export function Footer() {
             <h5 className="mb-4 font-mono text-xs uppercase tracking-wider text-text-dim">Navigate</h5>
             <div className="flex flex-col gap-3 text-[13.5px] text-text-muted">
               <Link href="/about" className="hover:text-mint">About</Link>
+              <Link href="/team" className="hover:text-mint">Team</Link>
               <Link href="/events" className="hover:text-mint">Events</Link>
               <Link href="/workshops" className="hover:text-mint">Workshops</Link>
               <Link href="/projects" className="hover:text-mint">Projects</Link>
               <Link href="/blog" className="hover:text-mint">Blog</Link>
               <Link href="/community" className="hover:text-mint">Community</Link>
+              <Link href="/join" className="hover:text-mint">Join</Link>
+              <Link href="/partners" className="hover:text-mint">Partners</Link>
+              <Link href="/faq" className="hover:text-mint">FAQ</Link>
             </div>
           </div>
 
