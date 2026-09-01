@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import type { BlogPostMeta } from '@/data/blog';
 import { ArrowRightIcon } from '@/components/icons';
 
@@ -22,6 +23,18 @@ export function BlogCard({ post }: { post: BlogPostMeta }) {
             'radial-gradient(circle at 85% 0%, rgba(124,58,237,0.12), transparent 35%)'
         }}
       />
+
+      {post.coverImageUrl && (
+        <div className="relative -mt-7 -mx-7 mb-7 h-[160px]">
+          <Image
+            src={post.coverImageUrl}
+            alt={post.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className="object-cover"
+          />
+        </div>
+      )}
 
       <div className="relative flex h-full flex-col">
         <div className="mb-5 flex flex-wrap gap-2">

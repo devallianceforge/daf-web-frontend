@@ -5,6 +5,7 @@ export type ProjectItem = {
   tags: string[];
   repoUrl: string;
   contributors: number;
+  coverImageUrl?: string;
 };
 
 // Sample/placeholder content. Wire this to the GitHub API (see PRD §8, F5) for live

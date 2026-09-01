@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { TEAM } from '@/data/team';
 import { Reveal } from '@/components/Reveal';
 import { ChannelIcon } from '@/components/icons';
@@ -38,9 +39,21 @@ export default function TeamPage() {
             <Reveal key={member.name} delay={i * 0.06}>
               <div className="flex h-full flex-col gap-4 rounded-daf border border-border bg-surface p-7 transition-colors duration-300 ease-daf hover:border-border-hi">
                 <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-daf-gradient font-display text-sm font-bold text-[#050508]">
-                    {getInitials(member.name)}
-                  </div>
+                  {member.avatarUrl ? (
+                    <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full">
+                      <Image
+                        src={member.avatarUrl}
+                        alt={member.name}
+                        fill
+                        sizes="48px"
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-daf-gradient font-display text-sm font-bold text-[#050508]">
+                      {getInitials(member.name)}
+                    </div>
+                  )}
                   <div>
                     <h4 className="font-display text-lg font-semibold">{member.name}</h4>
                     <p className="font-mono text-xs text-mint">{member.role}</p>

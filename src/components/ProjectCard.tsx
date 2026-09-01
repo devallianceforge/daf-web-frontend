@@ -1,10 +1,22 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import type { ProjectItem } from '@/data/projects';
 import { ArrowRightIcon } from './icons';
 
 export function ProjectCard({ project }: { project: ProjectItem }) {
   return (
-    <div className="group flex h-full flex-col justify-between rounded-daf border border-border bg-surface p-7 transition-all duration-300 ease-daf hover:-translate-y-1 hover:border-border-hi">
+    <div className="group flex h-full flex-col justify-between overflow-hidden rounded-daf border border-border bg-surface p-7 transition-all duration-300 ease-daf hover:-translate-y-1 hover:border-border-hi">
+      {project.coverImageUrl && (
+        <div className="relative -mt-7 -mx-7 mb-7 h-[160px]">
+          <Image
+            src={project.coverImageUrl}
+            alt={project.name}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className="object-cover"
+          />
+        </div>
+      )}
       <div>
         <div className="mb-4 flex flex-wrap gap-2">
           {project.tags.map((tag) => (

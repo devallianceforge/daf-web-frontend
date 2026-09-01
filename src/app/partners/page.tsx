@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { PARTNER_TIERS, PARTNERS } from '@/data/partners';
 import { SITE } from '@/data/site';
 import { Reveal } from '@/components/Reveal';
@@ -88,9 +89,19 @@ export default function PartnersPage() {
                   href={partner.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-20 items-center justify-center rounded-daf border border-border bg-surface px-6 font-display text-sm font-semibold text-text-muted transition-colors duration-300 ease-daf hover:border-mint hover:text-text"
+                  className="relative flex h-20 items-center justify-center overflow-hidden rounded-daf border border-border bg-surface px-6 font-display text-sm font-semibold text-text-muted transition-colors duration-300 ease-daf hover:border-mint hover:text-text"
                 >
-                  {partner.name}
+                  {partner.logoUrl ? (
+                    <Image
+                      src={partner.logoUrl}
+                      alt={partner.name}
+                      fill
+                      sizes="160px"
+                      className="object-contain p-2"
+                    />
+                  ) : (
+                    partner.name
+                  )}
                 </a>
               ))}
             </div>

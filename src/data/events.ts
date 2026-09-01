@@ -6,6 +6,7 @@ export type EventItem = {
   dateLabel: { month: string; day: string };
   format: 'Online' | 'Hybrid' | 'In-person';
   tags: string[];
+  coverImageUrl?: string;
   // Detail-page fields
   location?: string;
   agenda?: { time: string; title: string }[];

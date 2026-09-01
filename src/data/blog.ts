@@ -6,6 +6,7 @@ export type BlogPostMeta = {
   readTime: string;
   tags: string[];
   author: string;
+  coverImageUrl?: string;
 };
 
 export const BLOG_POSTS: BlogPostMeta[] = [

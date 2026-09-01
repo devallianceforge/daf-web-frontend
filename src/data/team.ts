@@ -5,6 +5,7 @@ export type TeamItem = {
   skills: string[];
   githubUrl?: string;
   linkedinUrl?: string;
+  avatarUrl?: string;
 };
 
 // Sample/placeholder content. Replace these with the real organizing committee's

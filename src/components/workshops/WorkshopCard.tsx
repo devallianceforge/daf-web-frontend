@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import type { WorkshopItem } from '@/data/workshops';
 import { ArrowRightIcon } from '@/components/icons';
 
@@ -12,42 +13,62 @@ export function WorkshopCard({
       href={`/workshops/${workshop.slug}`}
       className="group relative flex h-full flex-col overflow-hidden rounded-[24px] border border-border bg-surface transition-all duration-300 ease-daf hover:-translate-y-1.5 hover:border-border-hi"
     >
-      <div
-        className="relative flex h-[160px] items-start justify-between overflow-hidden p-5"
-        style={{
-          background:
-            'radial-gradient(circle at 18% 20%, rgba(124,58,237,0.30), transparent 48%), radial-gradient(circle at 82% 78%, rgba(47,230,176,0.20), transparent 48%), #11111a'
-        }}
-      >
+      {workshop.coverImageUrl ? (
+        <div className="relative h-[160px] overflow-hidden">
+          <Image
+            src={workshop.coverImageUrl}
+            alt={workshop.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-black/30" />
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(to bottom, transparent 55%, #11111a 100%)'
+            }}
+          />
+        </div>
+      ) : (
         <div
-          className="pointer-events-none absolute inset-0 opacity-[0.06]"
+          className="relative flex h-[160px] items-start justify-between overflow-hidden p-5"
           style={{
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.7) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.7) 1px, transparent 1px)',
-            backgroundSize: '26px 26px'
+            background:
+              'radial-gradient(circle at 18% 20%, rgba(124,58,237,0.30), transparent 48%), radial-gradient(circle at 82% 78%, rgba(47,230,176,0.20), transparent 48%), #11111a'
           }}
-        />
+        >
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.06]"
+            style={{
+              backgroundImage:
+                'linear-gradient(rgba(255,255,255,0.7) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.7) 1px, transparent 1px)',
+              backgroundSize: '26px 26px'
+            }}
+          />
 
-        <div className="relative z-[1] rounded-[16px] border border-border-hi bg-bg/75 px-4 py-3 backdrop-blur-md">
-          <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-text-muted">
-            Level
+          <div className="relative z-[1] rounded-[16px] border border-border-hi bg-bg/75 px-4 py-3 backdrop-blur-md">
+            <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-text-muted">
+              Level
+            </div>
+
+            <div className="mt-1 font-display text-[22px] font-semibold leading-none text-mint">
+              {workshop.level}
+            </div>
           </div>
 
-          <div className="mt-1 font-display text-[22px] font-semibold leading-none text-mint">
-            {workshop.level}
+          <div className="relative z-[1] flex flex-col items-end gap-2">
+            <span className="rounded-full border border-border bg-black/40 px-3 py-1.5 font-mono text-[9px] uppercase tracking-wider text-text-muted backdrop-blur-md">
+              {workshop.format}
+            </span>
+
+            <span className="rounded-full border border-mint/20 bg-mint/[0.08] px-3 py-1.5 font-mono text-[9px] uppercase tracking-wider text-mint">
+              {workshop.curriculum?.length ?? 0} modules
+            </span>
           </div>
         </div>
-
-        <div className="relative z-[1] flex flex-col items-end gap-2">
-          <span className="rounded-full border border-border bg-black/40 px-3 py-1.5 font-mono text-[9px] uppercase tracking-wider text-text-muted backdrop-blur-md">
-            {workshop.format}
-          </span>
-
-          <span className="rounded-full border border-mint/20 bg-mint/[0.08] px-3 py-1.5 font-mono text-[9px] uppercase tracking-wider text-mint">
-            {workshop.curriculum?.length ?? 0} modules
-          </span>
-        </div>
-      </div>
+      )}
 
       <div className="relative flex flex-1 flex-col p-6">
         <div className="mb-4 flex flex-wrap gap-2">
