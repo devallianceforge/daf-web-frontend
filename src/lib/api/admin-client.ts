@@ -3,6 +3,18 @@ import { getFirebaseAuth } from '@/lib/firebase';
 const ADMIN_API_URL =
   process.env.NEXT_PUBLIC_ADMIN_API_URL ?? 'http://localhost:3001';
 
+export async function adminApiUploadImage(
+  file: File,
+): Promise<{ url: string; deleteUrl: string | null }> {
+  const form = new FormData();
+  form.append('image', file);
+  const res = await adminApiFetch('/api/admin/images/upload', {
+    method: 'POST',
+    body: form,
+  });
+  return (await res.json()) as { url: string; deleteUrl: string | null };
+}
+
 export type ApiFieldError = {
   path: string;
   message: string;
