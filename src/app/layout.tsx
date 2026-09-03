@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
 import { SiteChrome } from '@/components/SiteChrome';
+import { SiteFooter } from '@/components/SiteFooter';
 import { SITE } from '@/data/site';
 import { CHANNELS } from '@/data/channels';
 import './globals.css';
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
         <SiteChrome />
         <main>{children}</main>
+        <SiteFooter />
       </body>
     </html>
   );

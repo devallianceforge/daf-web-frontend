@@ -2,7 +2,6 @@
 
 import { usePathname } from 'next/navigation';
 import { Header } from './Header';
-import { Footer } from './Footer';
 
 export function SiteChrome() {
   const pathname = usePathname();
@@ -12,10 +11,5 @@ export function SiteChrome() {
     return null;
   }
 
-  return (
-    <>
-      <Header />
-      <Footer />
-    </>
-  );
+  return <Header />;
 }
