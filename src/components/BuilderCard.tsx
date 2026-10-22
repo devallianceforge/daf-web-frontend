@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import type { BuilderItem } from '@/data/builders';
 import { getInitials } from '@/lib/utils';
 import { ArrowRightIcon } from './icons';
@@ -10,9 +11,21 @@ export function BuilderCard({ builder }: { builder: BuilderItem }) {
       className="group flex h-full flex-col gap-4 rounded-daf border border-border bg-surface p-6 transition-all duration-300 ease-daf hover:-translate-y-1 hover:border-border-hi"
     >
       <div className="flex items-center gap-4">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-daf-gradient font-display text-sm font-bold text-[#050508]">
-          {getInitials(builder.name)}
-        </div>
+        {builder.avatarUrl ? (
+          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full">
+            <Image
+              src={builder.avatarUrl}
+              alt={builder.name}
+              fill
+              sizes="48px"
+              className="object-cover"
+            />
+          </div>
+        ) : (
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-daf-gradient font-display text-sm font-bold text-[#050508]">
+            {getInitials(builder.name)}
+          </div>
+        )}
         <div>
           <h4 className="text-[15px] font-semibold">{builder.name}</h4>
           <p className="text-xs text-text-dim">{builder.role}</p>

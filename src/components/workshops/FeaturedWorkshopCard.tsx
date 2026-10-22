@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import type { WorkshopItem } from '@/data/workshops';
 import { ArrowRightIcon } from '@/components/icons';
 
@@ -89,7 +90,17 @@ export function FeaturedWorkshopCard({
         </div>
 
         <div className="relative hidden overflow-hidden border-l border-border lg:block">
-          <div className="absolute inset-0 bg-[#09090f]/70" />
+          {workshop.coverImageUrl ? (
+            <Image
+              src={workshop.coverImageUrl}
+              alt={workshop.title}
+              fill
+              sizes="40vw"
+              className="object-cover"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-[#09090f]/70" />
+          )}
 
           <div className="relative flex h-full flex-col justify-between p-10">
             <div className="flex items-start justify-between">

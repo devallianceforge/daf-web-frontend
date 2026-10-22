@@ -7,6 +7,7 @@ export type Partner = {
   id: string;
   name: string;
   url: string;
+  logoUrl?: string;
 };
 
 // Real partners get appended here as they sign on. The /partners page shows an

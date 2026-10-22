@@ -35,6 +35,7 @@ export type WorkshopItem = {
   level: WorkshopLevel;
   format: WorkshopFormat;
   tags: string[];
+  coverImageUrl?: string;
 
   /**
    * Workshop logistics

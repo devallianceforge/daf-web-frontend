@@ -6,6 +6,7 @@ export type BuilderItem = {
   skills: string[];
   githubUrl?: string;
   linkedinUrl?: string;
+  avatarUrl?: string;
   featured?: boolean;
 };
 
